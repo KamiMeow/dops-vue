@@ -2,12 +2,30 @@
   "pacts": [
     {
       "id": 1,
-      "address": "baka",
+      "address": "baka 1",
       "plan": "plan-1.jpg",
       "exists": 4,
       "windows": 10,
       "userId": 1,
       "statement": 1
+    },
+    {
+      "id": 2,
+      "address": "baka 2",
+      "plan": "plan-1.jpg",
+      "exists": 5,
+      "windows": 5,
+      "userId": 2,
+      "statement": 2
+    },
+    {
+      "id": 3,
+      "address": "baka 3",
+      "plan": "plan-1.jpg",
+      "exists": 4,
+      "windows": 7,
+      "userId": 3,
+      "statement": 3
     }
   ],
   "contract-types": [
@@ -49,12 +67,12 @@
     {
       "id": 2,
       "number": "1488222",
-      "contrat-type": "6"
+      "contrat-type": "3"
     },
     {
       "id": 3,
       "number": "0322562",
-      "contrat-type": "1"
+      "contrat-type": "3"
     },
     {
       "id": 4,
@@ -74,7 +92,8 @@
       "numberPassport": "454563",
       "phone": "(999) 555-33-22",
       "inn": "1239874560",
-      "fio": "Иосиф Виссарионович Бергамонт"
+      "fio": "Иосиф Виссарионович Бергамонт",
+      "isSotr": false
     },
     {
       "id": 2,
@@ -82,7 +101,8 @@
       "numberPassport": "456334",
       "phone": "(999) 555-33-22",
       "inn": "1239874560",
-      "fio": "Крыл Деднатович Курыч"
+      "fio": "Крыл Деднатович Курыч",
+      "isSotr": false
     },
     {
       "id": 3,
@@ -90,7 +110,52 @@
       "numberPassport": "456343",
       "phone": "(999) 555-33-22",
       "inn": "1239874560",
-      "fio": "Оанов Ликов Трамбл"
+      "fio": "Оанов Ликов Трамбл",
+      "isSotr": false
+    },
+    {
+      "id": 4,
+      "serialPassport": "4455",
+      "numberPassport": "456343",
+      "phone": "(999) 555-33-22",
+      "inn": "1239874560",
+      "fio": "Asss ddd ddd",
+      "isSotr": true
+    },
+    {
+      "id": 5,
+      "serialPassport": "4455",
+      "numberPassport": "456343",
+      "phone": "(999) 555-33-22",
+      "inn": "1239874560",
+      "fio": "Eee eee eee",
+      "isSotr": true
+    },
+    {
+      "serialPassport": "4234",
+      "numberPassport": "234234",
+      "phone": "(234) 234-23-42",
+      "inn": "42342 34234",
+      "fio": "wer wer wer",
+      "id": 6
+    },
+    {
+      "serialPassport": "3535",
+      "numberPassport": "535345",
+      "phone": "(544) 353-45-34",
+      "inn": "34534 53535",
+      "fio": "dfgdf gdfg d",
+      "id": 7
     }
-  ]
+  ],
+  "acts": [
+    {
+      "id": 1,
+      "patroulId": 1,
+      "isTrouble": true,
+      "statement": 1,
+      "pactId": 1
+    }
+  ],
+  "house-documents": []
 }
