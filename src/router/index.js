@@ -3,6 +3,8 @@ import Router from 'vue-router';
 import listners from './listners';
 import initListners from './initListners';
 
+import types from './routes/types';
+
 Vue.use(Router);
 
 const router = new Router({
@@ -31,11 +33,9 @@ const router = new Router({
       path: '/pacts',
       component: () => import('@/views/Pacts'),
     },
-    {
-      name: 'types',
-      path: '/types',
-      component: () => import('@/views/Types'),
-    },
+
+    ...types,
+    
     {
       path: '/*',
       redirect: '/users',

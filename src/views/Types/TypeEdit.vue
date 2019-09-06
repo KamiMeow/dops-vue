@@ -1,43 +1,95 @@
 <template>
-  <v-text-field
-    v-model.trim="data.name"
-    :rules="[rules.required]"
-    label="Название типа"
-    outlined
-    rounded
-    shaped
-  />
+  <v-layout justify-center>
+    <v-flex xs5>
+      <v-form v-model="valid" @submit.prevent="action">
+        <v-card class="pa-4">
+          <v-card-title class="mb-5">{{ currentTitle }}</v-card-title>
+
+          <v-card-text>
+            <v-text-field
+              v-model.trim="type.name"
+              :rules="[rules.required]"
+              label="Название типа"
+              outlined
+              rounded
+              shaped
+            />
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer />
+            <v-btn
+              :disabled="!valid"
+              :loading="loading"
+              color="primary"
+              type="submit"
+              depressed
+              outlined
+              rounded
+              large
+            >{{ currentActionName }}</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
 export default {
   name: 'TypeEdit',
   props: {
-    data: { type: Object },
+    id: { type: Number },
+  },
+  async created() {
+    if (this.isEdit) {
+      this.type = (await this.$store.dispatch('types/loadType', this.id)).data;
+    }
   },
   data: vm => ({
-    _name: '',
+    type: {
+      name: '',
+    },
+    valid: false,
+    loading: false,
     rules: vm.$store.getters.getRules,
   }),
   computed: {
-    name: {
-      get() {
-        return this.data.name || this._name;
-      },
-      set(name) {
-        this.data
-      }
+    isEdit() {
+      return !!this.id;
+    },
+    currentTitle() {
+      return this.isEdit ? 'Редактирование типа' : 'Создание нового типа'
+    },
+    currentActionName() {
+      return this.isEdit ? 'Редактировать' : 'Создать';
     }
   },
   methods: {
-    create() {
-      this.$store.dispatch('types/addType', this.name);
+    action() {
+      if (this.isEdit) this.edit();
+      else this.create();
     },
-    edit(id) {
-      this.$store.dispatch('types/addType', {
-        name: this.name,
-        id,
+    async create() {
+      this.loading = true;
+      await this.$store.dispatch('types/addType', this.type.name);
+      this.loading = false;
+
+      setTimeout(() => {
+        this.$router.push('/types');
+      }, 1000);
+    },
+    async edit() {
+      this.loading = true;
+      await this.$store.dispatch('types/editType', {
+        name: this.type.name,
+        id: this.id,
       });
+      this.loading = false;
+
+      setTimeout(() => {
+        this.$router.push('/types');
+      }, 1000);
     }
   }
 };

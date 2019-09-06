@@ -1,6 +1,7 @@
 <template>
   <div>
     <the-toolbar-app />
+    <notification />
     <!-- <the-menu-app v-model="options" class="mt-5" /> -->
 
     <v-content fliud>
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+import Notification from '@/components/Notification';
 import TheToolbarApp from './toolbar';
 import TheMenuApp from './menu';
 
@@ -31,6 +33,7 @@ export default {
   name: 'DefaultLayout',
   components: {
     TheToolbarApp,
+    Notification,
     TheMenuApp,
   },
   data: () => ({

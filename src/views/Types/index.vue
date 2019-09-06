@@ -1,14 +1,5 @@
 <template>
   <v-layout wrap>
-    <modal-form
-      v-model="typeEditDialog"
-      :action-name="!type.id ? 'Создать' : 'Редактировать'"
-      title="Добавление нового типа"
-      @action="action"
-    >
-      <type-edit :data="type" ref="typeEdit" />
-    </modal-form>
-
     <v-flex xs12>
       <sort-bar
         actionText="Добавить новый тип"
@@ -30,20 +21,35 @@
         class="custom-elevation"
       >
         <template #item.actions="{ item }">
-          <v-btn
-            color="primary"
-            text
-            @click="editType(item.id)"
-          >
+          <v-tooltip top>
+            <template #activator="{ on }">
+              <v-btn
+                color="primary"
+                text
+                icon
+                v-on="on"
+                @click="editType(item.id)"
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </template>
             Редактировать
-          </v-btn>
-          <v-btn
-            color="error"
-            text
-            @click="deleteType(item.id)"
-          >
+          </v-tooltip>
+
+          <v-tooltip top>
+            <template #activator="{ on }">
+              <v-btn
+                color="error"
+                text
+                icon
+                v-on="on"
+                @click="deleteType(item.id)"
+              >
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </template>
             Удалить
-          </v-btn>
+          </v-tooltip>
         </template>
       </v-data-table>
     </v-flex>
@@ -51,9 +57,7 @@
 </template>
 
 <script>
-import ModalForm from '@/components/ModalForm';
 import SortBar from '@/components/SortBar';
-import TypeEdit from './TypeEdit';
 
 const headers = [
   { value: 'id', text: 'ID' },
@@ -65,8 +69,6 @@ export default {
   name: 'TypesPage',
   components: {
     SortBar,
-    TypeEdit,
-    ModalForm,
   },
   async created() {
     this.loading = true;
@@ -74,14 +76,12 @@ export default {
     this.loading = false;
   },
   data: vm => ({
-    type: {},
     search: '',
 
     asc: false,
-    typeEditDialog: false,
+    loading: true,
 
     headers,
-    loading: true,
     itemsPerPageOptions: vm.$store.getters.getPerPage.table,
   }),
   computed: {
@@ -97,25 +97,14 @@ export default {
   },
   methods: {
     addType() {
-      this.type = {};
-      this.typeEditDialog = true;
+      this.$router.push('/type/new');
     },
     async editType(id) {
-      this.typeEditDialog = true;
-      this.type = (await this.$store.dispatch('types/loadType', id));
+      this.$router.push(`/type/${id}/edit`);
     },
     async deleteType(id) {
       await this.$store.dispatch('types/deleteTypes', id);
     },
-
-    action() {
-      if (this.type.id) {
-        this.$refs.typeEdit.edit(this.type.id);
-      }
-      else {
-        this.$refs.typeEdit.create();
-      }
-    }
   },
 };
 </script>

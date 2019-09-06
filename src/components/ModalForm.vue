@@ -16,7 +16,7 @@
 
             <v-flex shrink>
               <v-btn @click="closeDialog" color="error" icon>
-                <v-icon>close</v-icon>
+                <v-icon>mdi-close</v-icon>
               </v-btn>
             </v-flex>
           </v-layout>

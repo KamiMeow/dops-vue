@@ -8,7 +8,7 @@ export const initialState = () => ({
 
 export const mutations = {
   SET_TYPES: (state, types) => state.types = types,
-  DELETE_TYPE: (state, id) => state.types = state.types.filter(t => t.is !== id),
+  DELETE_TYPE: (state, id) => state.types = state.types.filter(t => t.id !== id),
 };
 
 export const actions = {
@@ -53,8 +53,8 @@ export const actions = {
     return new Promise((res) => {
       TypeService
         .loadType(id)
-        .then(() => {
-          res({ error: false });
+        .then(response => {
+          res({ error: false, data: response.data });
         });
     });
   },
@@ -76,5 +76,5 @@ export const actions = {
 };
 
 export const getters = {
-  getTypes: state => state.types,
+  getTypes: state => state.types.sort((n, p) => n.id > p.id ? 1: -1),
 };
