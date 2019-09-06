@@ -62,27 +62,37 @@
     {
       "id": 1,
       "number": "0222222",
-      "contrat-type": "3"
+      "contractType": "3"
     },
     {
       "id": 2,
       "number": "1488222",
-      "contrat-type": "3"
+      "contractType": "3"
     },
     {
       "id": 3,
       "number": "0322562",
-      "contrat-type": "3"
+      "contractType": "3"
     },
     {
       "id": 4,
       "number": "7846582",
-      "contrat-type": "2"
+      "contractType": "2"
     },
     {
       "id": 5,
       "number": "9825444",
-      "contrat-type": "4"
+      "contractType": "4"
+    },
+    {
+      "number": "345345",
+      "contractType": 3,
+      "id": 6
+    },
+    {
+      "number": "2323",
+      "contractType": 3,
+      "id": 7
     }
   ],
   "users": [

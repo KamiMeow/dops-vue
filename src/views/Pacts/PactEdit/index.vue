@@ -92,11 +92,12 @@ export default {
   },
   data: vm => ({
     pact: {
+      statementNumber: '',
       statement: 0,
       windows: '',
       address: '',
       exists: '',
-      userId: 0,
+      userId: 1,
     },
     houseDocuments: {
       asquisition: 0,
@@ -105,7 +106,7 @@ export default {
       check: 0,
     },
 
-    step: 1,
+    step: 3,
     stepper,
 
     loading: false,
@@ -158,6 +159,19 @@ export default {
       setTimeout(() => {
         this.$router.push('/pacts');
       }, 1000);
+    },
+    async createDocument() {
+      this.pact.statement = (await this.$store.dispatch('contracts/addContract', {
+        number: this.pact.statementNumber,
+        contractType: 3,
+      })).data.id;
+    }
+  },
+  watch: {
+    step(newVal) {
+      if (newVal === 3 && !this.pact.statement) {
+        this.createDocument();
+      }
     }
   }
 };
