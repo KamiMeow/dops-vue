@@ -28,7 +28,7 @@ export const actions = {
         .then(() => {
           res({ error: false });
           dispatch('notification/set', {
-            message: 'Пользователь успешно добавлен',
+            message: 'Пакт успешно заключён',
             type: 'success',
           }, { root: true });
         });
@@ -41,7 +41,7 @@ export const actions = {
         .then(() => {
           res({ error: false });
           dispatch('notification/set', {
-            message: 'Пользователь успешно изменён',
+            message: 'Пакт успешно изменён',
             type: 'success',
           }, { root: true });
         });
@@ -66,7 +66,7 @@ export const actions = {
           res({ error: false });
           commit('DELETE_PACT', id);
           dispatch('notification/set', {
-            message: 'Пользователь успешно удалён',
+            message: 'Пакт успешно удалён',
             type: 'success',
           }, { root: true });
         });
