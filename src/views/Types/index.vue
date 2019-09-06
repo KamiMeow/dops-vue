@@ -103,7 +103,7 @@ export default {
       this.$router.push(`/type/${id}/edit`);
     },
     async deleteType(id) {
-      await this.$store.dispatch('types/deleteTypes', id);
+      await this.$store.dispatch('types/deleteType', id);
     },
   },
 };

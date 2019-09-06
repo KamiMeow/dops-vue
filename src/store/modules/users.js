@@ -1,73 +1,72 @@
 import services from '@/middleware';
-
-const { TypeService } = services;
+const { UserService } = services;
 
 export const initialState = () => ({
-  types: [],
+  users: [],
 });
 
 export const mutations = {
-  SET_TYPES: (state, types) => state.types = types,
-  DELETE_TYPE: (state, id) => state.types = state.types.filter(t => t.id !== id),
+  SET_USERS: (state, users) => state.users = users,
+  DELETE_USER: (state, id) => state.users = state.users.filter(t => t.id !== id),
 };
 
 export const actions = {
-  loadTypes({ commit }) {
+  loadUsers({ commit }) {
     return new Promise((res) => {
-      TypeService
-        .loadTypes()
+      UserService
+        .loadUsers()
         .then((response) => {
-          commit('SET_TYPES', response.data);
+          commit('SET_USERS', response.data);
           res({ error: false });
         });
     });
   },
-  addType({ dispatch }, name) {
+  addUser({ dispatch }, data) {
     return new Promise((res) => {
-      TypeService
-        .addType(name)
+      UserService
+        .addUser(data)
         .then(() => {
           res({ error: false });
           dispatch('notification/set', {
-            message: 'Тип успешно добавлен',
+            message: 'Пользователь успешно добавлен',
             type: 'success',
           }, { root: true });
         });
     });
   },
-  editType({ dispatch }, { name, id }) {
+  editUser({ dispatch }, { data, id }) {
     return new Promise((res) => {
-      TypeService
-        .editType(name, id)
+      UserService
+        .editUser(data, id)
         .then(() => {
           res({ error: false });
           dispatch('notification/set', {
-            message: 'Тип успешно изменён',
+            message: 'Пользователь успешно изменён',
             type: 'success',
           }, { root: true });
         });
     });
   },
 
-  loadType(_, id) {
+  loadUser(_, id) {
     return new Promise((res) => {
-      TypeService
-        .loadType(id)
+      UserService
+        .loadUser(id)
         .then(response => {
           res({ error: false, data: response.data });
         });
     });
   },
 
-  deleteType({ commit, dispatch }, id) {
+  deleteUser({ commit, dispatch }, id) {
     return new Promise((res) => {
-      TypeService
-        .deleteType(id)
+      UserService
+        .deleteUser(id)
         .then(() => {
           res({ error: false });
-          commit('DELETE_TYPE', id);
+          commit('DELETE_USER', id);
           dispatch('notification/set', {
-            message: 'Тип успешно удалён',
+            message: 'Пользователь успешно удалён',
             type: 'success',
           }, { root: true });
         });
@@ -76,5 +75,5 @@ export const actions = {
 };
 
 export const getters = {
-  getTypes: state => state.types.sort((n, p) => n.id > p.id ? 1: -1),
+  getUsers: state => state.users.sort((n, p) => n.id > p.id ? 1: -1),
 };

@@ -70,25 +70,25 @@
   "users": [
     {
       "id": 1,
-      "serial-passport": "4455",
-      "number-passport": "4563",
-      "phone": "+7 (999) 555-33-22",
+      "serialPassport": "4455",
+      "numberPassport": "454563",
+      "phone": "(999) 555-33-22",
       "inn": "1239874560",
       "fio": "Иосиф Виссарионович Бергамонт"
     },
     {
       "id": 2,
-      "serial-passport": "4455",
-      "number-passport": "4563",
-      "phone": "+7 (999) 555-33-22",
+      "serialPassport": "4455",
+      "numberPassport": "456334",
+      "phone": "(999) 555-33-22",
       "inn": "1239874560",
       "fio": "Крыл Деднатович Курыч"
     },
     {
       "id": 3,
-      "serial-passport": "4455",
-      "number-passport": "4563",
-      "phone": "+7 (999) 555-33-22",
+      "serialPassport": "4455",
+      "numberPassport": "456343",
+      "phone": "(999) 555-33-22",
       "inn": "1239874560",
       "fio": "Оанов Ликов Трамбл"
     }

@@ -4,6 +4,7 @@ import listners from './listners';
 import initListners from './initListners';
 
 import types from './routes/types';
+import users from './routes/users';
 
 Vue.use(Router);
 
@@ -19,11 +20,6 @@ const router = new Router({
       component: () => import('@/views/LoginPage'),
     },
     {
-      name: 'users',
-      path: '/users',
-      component: () => import('@/views/Users'),
-    },
-    {
       name: 'acts',
       path: '/acts',
       component: () => import('@/views/Acts'),
@@ -35,6 +31,7 @@ const router = new Router({
     },
 
     ...types,
+    ...users,
     
     {
       path: '/*',
