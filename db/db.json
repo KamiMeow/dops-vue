@@ -1,0 +1,91 @@
+{
+  "pacts": [
+    {
+      "id": 1,
+      "address": "baka",
+      "plan": "plan-1.jpg",
+      "exists": 4,
+      "windows": 10,
+      "userId": 1,
+      "statement": 1
+    }
+  ],
+  "contract-types": [
+    {
+      "id": 1,
+      "name": "Банковский счёт"
+    },
+    {
+      "id": 2,
+      "name": "Свидетельство"
+    },
+    {
+      "id": 3,
+      "name": "Заявление"
+    },
+    {
+      "id": 4,
+      "name": "Перевод"
+    },
+    {
+      "id": 5,
+      "name": "Чек"
+    },
+    {
+      "id": 6
+    }
+  ],
+  "contracts": [
+    {
+      "id": 1,
+      "number": "0222222",
+      "contrat-type": "3"
+    },
+    {
+      "id": 2,
+      "number": "1488222",
+      "contrat-type": "6"
+    },
+    {
+      "id": 3,
+      "number": "0322562",
+      "contrat-type": "1"
+    },
+    {
+      "id": 4,
+      "number": "7846582",
+      "contrat-type": "2"
+    },
+    {
+      "id": 5,
+      "number": "9825444",
+      "contrat-type": "4"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "serial-passport": "4455",
+      "number-passport": "4563",
+      "phone": "+7 (999) 555-33-22",
+      "inn": "1239874560",
+      "fio": "Иосиф Виссарионович Бергамонт"
+    },
+    {
+      "id": 2,
+      "serial-passport": "4455",
+      "number-passport": "4563",
+      "phone": "+7 (999) 555-33-22",
+      "inn": "1239874560",
+      "fio": "Крыл Деднатович Курыч"
+    },
+    {
+      "id": 3,
+      "serial-passport": "4455",
+      "number-passport": "4563",
+      "phone": "+7 (999) 555-33-22",
+      "inn": "1239874560",
+      "fio": "Оанов Ликов Трамбл"
+    }
+  ]
+}
