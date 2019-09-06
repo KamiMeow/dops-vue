@@ -110,7 +110,7 @@ export default {
       return !!this.id;
     },
     currentTitle() {
-      return this.isEdit ? 'Редактирование типа' : 'Создание нового типа'
+      return this.isEdit ? 'Редактирование пользователя' : 'Создание нового пользователя'
     },
     currentActionName() {
       return this.isEdit ? 'Редактировать' : 'Создать';
