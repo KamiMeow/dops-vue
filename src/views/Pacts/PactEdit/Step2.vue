@@ -3,11 +3,14 @@
     <v-text-field
       label="Номер заявления"
       v-model="pact.statementNumber"
-      :rules="[rules.required]"
       :readonly="!!pact.statement"
+      :rules="[rules.required]"
       type="number"
       step="1"
       min="0"
+      outlined
+      rounded
+      shaped
     />
   </v-layout>
 </template>
