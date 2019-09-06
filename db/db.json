@@ -171,7 +171,8 @@
       "phone": "(234) 234-23-42",
       "inn": "42342 34234",
       "fio": "wer wer wer",
-      "id": 6
+      "id": 6,
+      "isSotr": false
     },
     {
       "serialPassport": "3535",
@@ -179,7 +180,8 @@
       "phone": "(544) 353-45-34",
       "inn": "34534 53535",
       "fio": "dfgdf gdfg d",
-      "id": 7
+      "id": 7,
+      "isSotr": false
     }
   ],
   "acts": [

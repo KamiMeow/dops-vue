@@ -126,6 +126,7 @@ export default {
     user: {
       serialPassport: '',
       numberPassport: '',
+      isSotr: false,
       phone: '',
       inn: '',
       fio: '',
