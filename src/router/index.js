@@ -5,6 +5,8 @@ import initListners from './initListners';
 
 import types from './routes/types';
 import users from './routes/users';
+import pacts from './routes/pacts';
+import acts from './routes/acts';
 
 Vue.use(Router);
 
@@ -32,6 +34,8 @@ const router = new Router({
 
     ...types,
     ...users,
+    ...pacts,
+    ...acts,
     
     {
       path: '/*',
