@@ -1,34 +1,32 @@
 import services from '@/middleware';
-const { UserService } = services;
+const { PactService } = services;
 
 export const initialState = () => ({
-  users: [],
+  pacts: [],
 });
 
 export const mutations = {
-  SET_USERS: (state, users) => state.users = users,
-  ADD_USER: (state, user) => state.users.push(user),
-  DELETE_USER: (state, id) => state.users = state.users.filter(t => t.id !== id),
+  SET_PACTS: (state, pacts) => state.pacts = pacts,
+  DELETE_PACT: (state, id) => state.pacts = state.pacts.filter(t => t.id !== id),
 };
 
 export const actions = {
-  loadUsers({ commit }) {
+  loadPacts({ commit }) {
     return new Promise((res) => {
-      UserService
-        .loadUsers()
+      PactService
+        .loadPacts()
         .then((response) => {
-          commit('SET_USERS', response.data);
+          commit('SET_PACTS', response.data);
           res({ error: false });
         });
     });
   },
-  addUser({ dispatch, commit }, data) {
+  addPact({ dispatch }, data) {
     return new Promise((res) => {
-      UserService
-        .addUser(data)
-        .then(response => {
-          res({ error: false, data: response.data });
-          commit('ADD_USER', response.data);
+      PactService
+        .addPact(data)
+        .then(() => {
+          res({ error: false });
           dispatch('notification/set', {
             message: 'Пользователь успешно добавлен',
             type: 'success',
@@ -36,10 +34,10 @@ export const actions = {
         });
     });
   },
-  editUser({ dispatch }, { data, id }) {
+  editPact({ dispatch }, { data, id }) {
     return new Promise((res) => {
-      UserService
-        .editUser(data, id)
+      PactService
+        .editPact(data, id)
         .then(() => {
           res({ error: false });
           dispatch('notification/set', {
@@ -50,23 +48,23 @@ export const actions = {
     });
   },
 
-  loadUser(_, id) {
+  loadPact(_, id) {
     return new Promise((res) => {
-      UserService
-        .loadUser(id)
+      PactService
+        .loadPact(id)
         .then(response => {
           res({ error: false, data: response.data });
         });
     });
   },
 
-  deleteUser({ commit, dispatch }, id) {
+  deletePact({ commit, dispatch }, id) {
     return new Promise((res) => {
-      UserService
-        .deleteUser(id)
+      PactService
+        .deletePact(id)
         .then(() => {
           res({ error: false });
-          commit('DELETE_USER', id);
+          commit('DELETE_PACT', id);
           dispatch('notification/set', {
             message: 'Пользователь успешно удалён',
             type: 'success',
@@ -77,5 +75,5 @@ export const actions = {
 };
 
 export const getters = {
-  getUsers: state => state.users.sort((n, p) => n.id > p.id ? 1: -1),
+  getPacts: state => state.pacts.sort((n, p) => n.id > p.id ? 1: -1),
 };
