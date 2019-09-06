@@ -1,5 +1,10 @@
 <template>
   <v-layout wrap>
+    <documents-dialog
+      v-model="documentDialog"
+      :documents="currentDocuments"
+      :get-document-number="getDocumentNumber"
+    />
     <v-flex xs12>
       <sort-bar
         actionText="Заключить новый пакт"
@@ -24,6 +29,15 @@
           +7 {{ item.phone }}
         </template>
 
+        <template #item.documents="{ item }">
+          <a
+            v-if="haveDocuments(item.userId)"
+            href="#"
+            @click="getCurrentDocuments(item.userId)"
+          >Просмотреть документы</a>
+          <div class="grey--text" v-else><i>Документы не добавлены</i></div>
+        </template>
+
         <template #item.actions="{ item }">
           <v-tooltip top>
             <template #activator="{ on }">
@@ -34,10 +48,10 @@
                 v-on="on"
                 @click="editPact(item.id)"
               >
-                <v-icon>mdi-pencil</v-icon>
+                <v-icon>mdi-eye</v-icon>
               </v-btn>
             </template>
-            Редактировать
+            Просмотреть
           </v-tooltip>
 
           <v-tooltip top>
@@ -62,30 +76,41 @@
 
 <script>
 import SortBar from '@/components/SortBar';
+import DocumentsDialog from './DocumentsDialog';
 
 const headers = [
   { value: 'id', text: 'ID' },
-  { value: 'userId', text: 'ID пользователя' },
-  { value: 'statement', text: 'ID заявления' },
+  { value: 'fio', text: 'ФИО пользователя' },
+  { value: 'statementNumber', text: 'Номер заявления' },
   { value: 'windows', text: 'Количество окон' },
   { value: 'exists', text: 'Количество выходов' },
   { value: 'address', text: 'Адрес' },
+  { value: 'documents', text: 'Документы' },
   // { value: 'plan', text: 'План' },
-  { value: 'actions', text: 'События' },
+  { value: 'actions', text: 'События', sortable: false },
 ];
 
 export default {
   name: 'PactsPage',
   components: {
     SortBar,
+    DocumentsDialog,
   },
   async created() {
-    this.loading = true;
-    await this.$store.dispatch('pacts/loadPacts');
-    this.loading = false;
+    this.loadPacts();
+    this.loadUsers();
+    this.loadContracts();
+    this.loadHouseDocuments();
   },
   data: vm => ({
     search: '',
+    currentDocuments: {
+      asquisition: 0,
+      certificate: 0,
+      transmit: 0,
+      check: 0,
+    },
+    documentDialog: false,
 
     asc: false,
     loading: true,
@@ -101,13 +126,64 @@ export default {
       const asc = (next, prev) => (next.id > prev.id ? 1 : -1);
       const desc = (next, prev) => (next.id < next.id ? 1 : -1);
 
-      return this.pacts.sort(this.asc ? asc : desc);
+      return this.pacts
+        .map(p => {
+          p.fio = this.getUserFIO(p.userId);
+          p.statementNumber = this.getDocumentNumber(p.statement);
+          return p;
+        })
+        .sort(this.asc ? asc : desc);
+    },
+
+    users() {
+      return this.$store.getters['users/getUsers'];
+    },
+    contracts() {
+      return this.$store.getters['contracts/getContracts'];
+    },
+    houseDocuments() {
+      return this.$store.getters['houseDocuments/getHouseDocuments'];
     },
   },
   methods: {
+    async loadPacts() {
+      this.loading = true;
+      await this.$store.dispatch('pacts/loadPacts');
+      this.loading = false;
+    },
+    async loadUsers() {
+      this.$store.dispatch('users/loadUsers');
+    },
+    async loadContracts() {
+      this.$store.dispatch('contracts/loadContracts');
+    },
+    async loadHouseDocuments() {
+      this.$store.dispatch('houseDocuments/loadHouseDocuments');
+    },
+
     addPact() {
       this.$router.push('/pact/new');
     },
+    getDocumentNumber(id) {
+      if (!id) return;
+      const value = this.contracts.find(v => v.id === id);
+      if (!value) return;
+      return value.number;
+    },
+    getUserFIO(id) {
+      if (!id) return;
+      const value = this.users.find(v => v.id === id);
+      if (!value) return;
+      return value.fio;
+    },
+    getCurrentDocuments(userId) {
+      this.documentDialog = true;
+      this.currentDocuments = this.houseDocuments.find(d => d.userId === userId);
+    },
+    haveDocuments(userId) {
+      return !!this.houseDocuments.find(d => d.userId === userId);
+    },
+
     async editPact(id) {
       this.$router.push(`/pact/${id}/edit`);
     },

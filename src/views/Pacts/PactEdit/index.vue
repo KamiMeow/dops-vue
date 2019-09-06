@@ -87,7 +87,9 @@ export default {
   },
   async created() {
     if (this.isEdit) {
-      this.pact = (await this.$store.dispatch('pacts/loadPact', this.id)).data;
+      this.loadPact();
+      this.loadContracts();
+      this.loadHouseDocuments();
     }
   },
   data: vm => ({
@@ -129,7 +131,14 @@ export default {
     },
     globalValid() {
       return this.stepper.every(s => s.valid) && this.pact.plan;
-    }
+    },
+
+    contracts() {
+      return this.$store.getters['contracts/getContracts'];
+    },
+    houseDocumentsComp() {
+      return this.$store.getters['houseDocuments/getHouseDocuments'];
+    },
   },
   methods: {
     action() {
@@ -142,6 +151,29 @@ export default {
     },
     nextStep() {
       this.step = this.step + 1;
+    },
+    getDocumentNumber(id) {
+      if (!id) return;
+      const value = this.contracts.find(v => v.id === id);
+      if (!value) return;
+      return value.number;
+    },
+
+    async loadPact() {
+      this.pact = (await this.$store.dispatch('pacts/loadPact', this.id)).data;
+      this.pact.plan = '';
+      this.pact.statementNumber = this.getDocumentNumber(this.pact.statement);
+    },
+    async loadContracts() {
+      await this.$store.dispatch('contracts/loadContracts');
+    },
+    async loadHouseDocuments() {
+      await this.$store.dispatch('houseDocuments/loadHouseDocuments');
+      this.houseDocuments = this.houseDocumentsComp.find(h => h.userId === this.pact.userId);
+      this.houseDocuments.asquisitionNumber = this.getDocumentNumber(this.houseDocuments.asquisition);
+      this.houseDocuments.certificateNumber = this.getDocumentNumber(this.houseDocuments.certificate);
+      this.houseDocuments.transmitNumber = this.getDocumentNumber(this.houseDocuments.transmit);
+      this.houseDocuments.checkNumber = this.getDocumentNumber(this.houseDocuments.check);
     },
 
     async createPact() {

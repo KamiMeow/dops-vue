@@ -35,6 +35,15 @@
       "userId": 6,
       "plan": "blob:http://localhost:8080/68164e5e-0410-4558-9c93-406629dbf4a7",
       "id": 4
+    },
+    {
+      "statement": 11,
+      "address": "adas asdas asdadasds",
+      "windows": "15",
+      "exists": "5",
+      "userId": 7,
+      "plan": "blob:http://localhost:8080/f70cfe19-df52-4511-a602-d07ff6a65be6",
+      "id": 5
     }
   ],
   "contract-types": [
@@ -117,6 +126,31 @@
       "contractType": 1,
       "number": "345345",
       "id": 10
+    },
+    {
+      "contractType": 3,
+      "number": "234234234",
+      "id": 11
+    },
+    {
+      "contractType": 2,
+      "number": "23423",
+      "id": 12
+    },
+    {
+      "contractType": 7,
+      "number": "42342",
+      "id": 13
+    },
+    {
+      "contractType": 4,
+      "number": "4234234",
+      "id": 14
+    },
+    {
+      "contractType": 1,
+      "number": "234234",
+      "id": 15
     }
   ],
   "users": [
@@ -201,6 +235,14 @@
       "check": 10,
       "userId": 6,
       "id": 1
+    },
+    {
+      "asquisition": 12,
+      "certificate": 13,
+      "transmit": 14,
+      "check": 15,
+      "userId": 7,
+      "id": 2
     }
   ]
 }
