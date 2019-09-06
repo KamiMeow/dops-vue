@@ -88,7 +88,6 @@ export default {
     if (this.isEdit) {
       this.pact = (await this.$store.dispatch('pacts/loadPact', this.id)).data;
     }
-    
   },
   data: vm => ({
     pact: {
@@ -100,13 +99,17 @@ export default {
       userId: 1,
     },
     houseDocuments: {
+      asquisitionNumber: '',
+      certificateNumber: '',
+      transmitNumber: '',
+      checkNumber: '',
       asquisition: 0,
       certificate: 0,
       transmit: 0,
       check: 0,
     },
 
-    step: 3,
+    step: 4,
     stepper,
 
     loading: false,
@@ -160,19 +163,31 @@ export default {
         this.$router.push('/pacts');
       }, 1000);
     },
-    async createDocument() {
-      this.pact.statement = (await this.$store.dispatch('contracts/addContract', {
-        number: this.pact.statementNumber,
-        contractType: 3,
+    async createDocument(number, contractType) {
+      return (await this.$store.dispatch('contracts/addContract', {
+        contractType,
+        number,
       })).data.id;
     }
   },
   watch: {
     step(newVal) {
       if (newVal === 3 && !this.pact.statement) {
-        this.createDocument();
+        this.pact.statement = this.createDocument(this.pact.statementNumber, 3);
       }
-    }
-  }
+      if (newVal === 4 && !this.houseDocuments.check) {
+        this.houseDocuments.asquisition = this.createDocument(this.houseDocuments.asquisitionNumber, 2);
+        setTimeout(() => {
+          this.houseDocuments.certificate = this.createDocument(this.houseDocuments.certificateNumber, 7);
+        }, 500);
+        setTimeout(() => {
+          this.houseDocuments.transmit = this.createDocument(this.houseDocuments.transmitNumber, 4);
+        }, 1000);
+        setTimeout(() => {
+          this.houseDocuments.check = this.createDocument(this.houseDocuments.checkNumber, 1);
+        }, 1500);
+      }
+    },
+  },
 };
 </script>
