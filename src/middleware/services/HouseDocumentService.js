@@ -1,17 +1,17 @@
 export default {
-  loadDocument(id) {
+  loadHouseDocument(id) {
     return this.apiClient.get(`house-documents/${id}`);
   },
-  loadDocuments() {
+  loadHouseDocuments() {
     return this.apiClient.get('house-documents');
   },
-  addDocument(data) {
+  addHouseDocument(data) {
     return this.apiClient.post('house-documents', data);
   },
-  editDocument(data, id) {
+  editHouseDocument(data, id) {
     return this.apiClient.put(`house-documents/${id}`, data);
   },
-  deleteDocument(id) {
+  deleteHouseDocument(id) {
     return this.apiClient.delete(`house-documents/${id}`);
   },
 };

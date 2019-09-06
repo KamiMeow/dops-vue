@@ -46,9 +46,10 @@
                   >Вперёд</v-btn>
                   <v-btn
                     v-if="index === 3"
-                    color="primary"
                     :disabled="!globalValid"
-                    @click="nextStep"
+                    :loading="loading"
+                    color="primary"
+                    @click="action"
                   >{{ currentActionName }}</v-btn>
                 </v-flex>
               </v-layout>
@@ -96,7 +97,8 @@ export default {
       windows: '',
       address: '',
       exists: '',
-      userId: 1,
+      userId: 0,
+      plan: '',
     },
     houseDocuments: {
       asquisitionNumber: '',
@@ -109,7 +111,7 @@ export default {
       check: 0,
     },
 
-    step: 4,
+    step: 1,
     stepper,
 
     loading: false,
@@ -126,13 +128,13 @@ export default {
       return this.isEdit ? 'Редактировать' : 'Создать';
     },
     globalValid() {
-      return this.stepper.every(s => s.valid);
+      return this.stepper.every(s => s.valid) && this.pact.plan;
     }
   },
   methods: {
     action() {
-      if (this.isEdit) this.edit();
-      else this.create();
+      if (this.isEdit) this.editPact();
+      else this.createPact();
     },
 
     prevStep() {
@@ -142,6 +144,24 @@ export default {
       this.step = this.step + 1;
     },
 
+    async createPact() {
+      this.loading = true;
+      await this.$store.dispatch('pacts/addPact', {
+        statement: this.pact.statement,
+        address: this.pact.address,
+        windows: this.pact.windows,
+        exists: this.pact.exists,
+        userId: this.pact.userId,
+        plan: this.pact.plan,
+      });
+      this.loading = false;
+      setTimeout(() => {
+        this.$router.push('/pacts');
+      }, 1000);
+    },
+    async editPact() {
+      /// code here...
+    },
     async create() {
       this.loading = true;
       await this.$store.dispatch('pacts/addPact', this.pact);
@@ -164,27 +184,62 @@ export default {
       }, 1000);
     },
     async createDocument(number, contractType) {
-      return (await this.$store.dispatch('contracts/addContract', {
+      const id = (await this.$store.dispatch('contracts/addContract', {
         contractType,
         number,
       })).data.id;
-    }
+      return id;
+    },
+    async createHouseDocument() {
+      if (this.houseDocuments.asquisition
+        && this.houseDocuments.certificate
+        && this.houseDocuments.transmit
+        && this.houseDocuments.check
+      ) {
+        await this.$store.dispatch('houseDocuments/addHouseDocument', {
+          asquisition: this.houseDocuments.asquisition,
+          certificate: this.houseDocuments.certificate,
+          transmit: this.houseDocuments.transmit,
+          check: this.houseDocuments.check,
+          userId: this.pact.userId,
+        });
+      }
+    },
   },
   watch: {
     step(newVal) {
       if (newVal === 3 && !this.pact.statement) {
-        this.pact.statement = this.createDocument(this.pact.statementNumber, 3);
+        this.createDocument(this.pact.statementNumber, 3)
+          .then(res => {
+            this.pact.statement = res;
+          })
       }
       if (newVal === 4 && !this.houseDocuments.check) {
-        this.houseDocuments.asquisition = this.createDocument(this.houseDocuments.asquisitionNumber, 2);
+        this.createDocument(this.houseDocuments.asquisitionNumber, 2)
+          .then(res => {
+            this.houseDocuments.asquisition = res;
+            this.createHouseDocument();
+          })
         setTimeout(() => {
-          this.houseDocuments.certificate = this.createDocument(this.houseDocuments.certificateNumber, 7);
+          this.createDocument(this.houseDocuments.certificateNumber, 7)
+            .then(res => {
+              this.houseDocuments.certificate = res;
+              this.createHouseDocument();
+            })
         }, 500);
         setTimeout(() => {
-          this.houseDocuments.transmit = this.createDocument(this.houseDocuments.transmitNumber, 4);
+          this.createDocument(this.houseDocuments.transmitNumber, 4)
+            .then(res => {
+              this.houseDocuments.transmit = res;
+              this.createHouseDocument();
+            })
         }, 1000);
         setTimeout(() => {
-          this.houseDocuments.check = this.createDocument(this.houseDocuments.checkNumber, 1);
+          this.createDocument(this.houseDocuments.checkNumber, 1)
+            .then(res => {
+              this.houseDocuments.check = res;
+              this.createHouseDocument();
+            })
         }, 1500);
       }
     },

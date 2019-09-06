@@ -3,7 +3,7 @@
     <v-text-field
       label="Номер заявления"
       v-model="pact.statementNumber"
-      :readonly="!!pact.statement"
+      :disabled="!!pact.statement"
       :rules="[rules.required]"
       type="number"
       step="1"

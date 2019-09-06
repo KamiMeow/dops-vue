@@ -26,6 +26,15 @@
       "windows": 7,
       "userId": 3,
       "statement": 3
+    },
+    {
+      "statement": 6,
+      "address": "34343 454 5",
+      "windows": "3434",
+      "exists": "3434",
+      "userId": 6,
+      "plan": "blob:http://localhost:8080/68164e5e-0410-4558-9c93-406629dbf4a7",
+      "id": 4
     }
   ],
   "contract-types": [
@@ -85,14 +94,29 @@
       "contractType": "4"
     },
     {
-      "number": "345345",
       "contractType": 3,
+      "number": "345634535",
       "id": 6
     },
     {
-      "number": "2323",
-      "contractType": 3,
+      "contractType": 2,
+      "number": "34534",
       "id": 7
+    },
+    {
+      "contractType": 7,
+      "number": "5345345",
+      "id": 8
+    },
+    {
+      "contractType": 4,
+      "number": "34345",
+      "id": 9
+    },
+    {
+      "contractType": 1,
+      "number": "345345",
+      "id": 10
     }
   ],
   "users": [
@@ -167,5 +191,14 @@
       "pactId": 1
     }
   ],
-  "house-documents": []
+  "house-documents": [
+    {
+      "asquisition": 7,
+      "certificate": 8,
+      "transmit": 9,
+      "check": 10,
+      "userId": 6,
+      "id": 1
+    }
+  ]
 }

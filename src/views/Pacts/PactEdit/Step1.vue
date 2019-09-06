@@ -120,7 +120,7 @@ export default {
     this.loadUsers();
   },
   data: () => ({
-    isCreateUser: true,
+    isCreateUser: false,
     loading: false,
 
     user: {
