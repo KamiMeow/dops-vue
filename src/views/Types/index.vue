@@ -110,9 +110,6 @@ export default {
     importExcel(data) {
       const keys = data.splice(0, 1).flat();
 
-      console.log(keys);
-      console.log(data);
-
       const newData = [];
       data.forEach((item, index) => {
         const element = {};
@@ -124,7 +121,6 @@ export default {
           this.$store.dispatch('types/addType', element);
         }, 500 * index);
       });
-      console.log(newData);
     },
   },
 };
