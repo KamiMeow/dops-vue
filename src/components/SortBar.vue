@@ -10,15 +10,34 @@
             outlined
             rounded
             v-on="on"
+            small
+            fab
             @click="$emit('add')"
           >
-            <!-- x-small
-            fab -->
-            <!-- <v-icon>add</v-icon> -->
-            Создать
+            <v-icon>mdi-plus</v-icon>
+            <!-- Создать -->
           </v-btn>
         </template>
         {{ actionText }}
+      </v-tooltip>
+      
+      <v-tooltip top>
+        <template #activator="{ on }">
+          <v-btn
+            class="mx-3"
+            color="secondary"
+            outlined
+            rounded
+            v-on="on"
+            small
+            fab
+            @click="$refs.inputCsvUpload.click()"
+          >
+            <v-icon>mdi-file-excel</v-icon>
+          </v-btn>
+          <input v-show="false" ref="inputCsvUpload" type="file" @change="importExcel">
+        </template>
+        Импорт из excel
       </v-tooltip>
     </v-flex>
 
@@ -27,7 +46,7 @@
         v-model="searchComp"
         label="Поиск"
         class="mt-0 pt-0 icon-small"
-        append-icon="fa-search"
+        append-icon="mdi-search"
       />
     </v-flex>
 
@@ -53,6 +72,8 @@
 </template>
 
 <script>
+import XLSX from 'xlsx';
+
 export default {
   name: 'SortBar',
   props: {
@@ -99,6 +120,26 @@ export default {
     isTable() {
       return this.type === 'table';
     },
+  },
+  methods: {
+    importExcel({ target }) {
+			const files = target.files;
+			if(files && files[0]) this.parseExcel(files[0]);
+		},
+    parseExcel(file) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+        const result = e.target.result,
+              read = XLSX.read(result, { type: 'binary' }),
+              name = read.SheetNames[0],
+              ws = read.Sheets[name],
+              data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+
+        console.log(data);
+        this.$emit('import-excel', data);
+			};
+			reader.readAsBinaryString(file);
+		}
   },
 };
 </script>
