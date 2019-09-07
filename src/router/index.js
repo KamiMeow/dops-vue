@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import listners from './listners';
 import initListners from './initListners';
 
+import patrouls from './routes/patrouls';
 import types from './routes/types';
 import users from './routes/users';
 import pacts from './routes/pacts';
@@ -32,6 +33,7 @@ const router = new Router({
       component: () => import('@/views/Pacts'),
     },
 
+    ...patrouls,
     ...types,
     ...users,
     ...pacts,
