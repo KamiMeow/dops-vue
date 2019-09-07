@@ -72,7 +72,7 @@ export default {
     },
     async create() {
       this.loading = true;
-      await this.$store.dispatch('types/addType', this.type.name);
+      await this.$store.dispatch('types/addType', this.type);
       this.loading = false;
 
       setTimeout(() => {
@@ -82,7 +82,7 @@ export default {
     async edit() {
       this.loading = true;
       await this.$store.dispatch('types/editType', {
-        name: this.type.name,
+        dat: this.type,
         id: this.id,
       });
       this.loading = false;

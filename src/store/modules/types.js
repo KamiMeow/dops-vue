@@ -23,10 +23,10 @@ export const actions = {
         });
     });
   },
-  addType({ dispatch, commit }, name) {
+  addType({ dispatch, commit }, data) {
     return new Promise((res) => {
       TypeService
-        .addType(name)
+        .addType(data)
         .then((response) => {
           res({ error: false });
           commit('ADD_TYPE', response.data);
@@ -37,10 +37,10 @@ export const actions = {
         });
     });
   },
-  editType({ dispatch }, { name, id }) {
+  editType({ dispatch }, { data, id }) {
     return new Promise((res) => {
       TypeService
-        .editType(name, id)
+        .editType(data, id)
         .then(() => {
           res({ error: false });
           dispatch('notification/set', {

@@ -5,11 +5,11 @@ export default {
   loadTypes() {
     return this.apiClient.get('contract-types');
   },
-  addType(name) {
-    return this.apiClient.post('contract-types', { name });
+  addType(data) {
+    return this.apiClient.post('contract-types', data);
   },
-  editType(name, id) {
-    return this.apiClient.put(`contract-types/${id}`, { name });
+  editType(data, id) {
+    return this.apiClient.put(`contract-types/${id}`, data);
   },
   deleteType(id) {
     return this.apiClient.delete(`contract-types/${id}`);
