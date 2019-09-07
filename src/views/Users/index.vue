@@ -23,6 +23,10 @@
         <template #item.phone="{ item }">
           +7 {{ item.phone }}
         </template>
+        <template #item.isSotr="{ item }">
+          <div v-if="item.isSotr">Сотрудник</div>
+          <div v-else>Клиент</div>
+        </template>
 
         <template #item.actions="{ item }">
           <v-tooltip top>
@@ -70,6 +74,7 @@ const headers = [
   { value: 'inn', text: 'ИНН' },
   { value: 'serialPassport', text: 'Серия паспорта' },
   { value: 'numberPassport', text: 'Номер паспорта' },
+  { value: 'isSotr', text: 'Роль' },
   { value: 'actions', text: 'События' },
 ];
 

@@ -58,6 +58,10 @@
                 shaped
               />
             </v-layout>
+            <v-switch
+              v-model="user.isSotr"
+              label="Сотрудник"
+            />
           </v-card-text>
 
           <v-card-actions>
@@ -97,6 +101,7 @@ export default {
     user: {
       serialPassport: '',
       numberPassport: '',
+      isSotr: false,
       phone: '',
       inn: '',
       fio: '',
