@@ -9,6 +9,8 @@ import users from './routes/users';
 import pacts from './routes/pacts';
 import acts from './routes/acts';
 
+import Dashboard from '@/views/Dashboard';
+
 Vue.use(Router);
 
 const router = new Router({
@@ -22,6 +24,11 @@ const router = new Router({
       },
       component: () => import('@/views/LoginPage'),
     },
+    {
+      name: 'main',
+      path: '/',
+      component: Dashboard,
+    },
 
     ...patrouls,
     ...types,
@@ -31,7 +38,7 @@ const router = new Router({
 
     {
       path: '/*',
-      redirect: '/users',
+      redirect: '/',
     },
   ],
 });
