@@ -7,6 +7,7 @@
         :search.sync="search"
         :asc.sync="asc"
         @add="addUser"
+        @import-excel="importExcel"
       />
     </v-flex>
 
@@ -117,6 +118,22 @@ export default {
     },
     async deleteUser(id) {
       await this.$store.dispatch('users/deleteUser', id);
+    },
+
+    importExcel(data) {
+      const keys = data.splice(0, 1).flat();
+
+      const newData = [];
+      data.forEach((item, index) => {
+        const element = {};
+        keys.forEach((key, index) => {
+          element[key] = item[index];
+        });
+        newData.push(element);
+        setTimeout(() => {
+          this.$store.dispatch('users/addUser', element);
+        }, 500 * index);
+      });
     },
   },
 };
