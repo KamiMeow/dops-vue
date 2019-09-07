@@ -236,6 +236,36 @@
       "patroulId": 1,
       "userId": 6,
       "id": 3
+    },
+    {
+      "isTrouble": "true",
+      "patroulId": 1,
+      "userId": 1,
+      "id": 4
+    },
+    {
+      "isTrouble": "false",
+      "patroulId": 1,
+      "userId": 2,
+      "id": 5
+    },
+    {
+      "isTrouble": "true",
+      "patroulId": 2,
+      "userId": 3,
+      "id": 6
+    },
+    {
+      "isTrouble": "true",
+      "patroulId": 2,
+      "userId": 4,
+      "id": 7
+    },
+    {
+      "isTrouble": "false",
+      "patroulId": 2,
+      "userId": 5,
+      "id": 8
     }
   ],
   "house-documents": [

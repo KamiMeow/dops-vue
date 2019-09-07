@@ -7,6 +7,7 @@ export const initialState = () => ({
 });
 
 export const mutations = {
+  ADD_ACT: (state, act) => state.acts.push(act),
   SET_ACTS: (state, acts) => state.acts = acts,
   DELETE_ACT: (state, id) => state.acts = state.acts.filter(t => t.id !== id),
 };
@@ -22,11 +23,12 @@ export const actions = {
         });
     });
   },
-  addAct({ dispatch }, data) {
+  addAct({ dispatch, commit }, data) {
     return new Promise((res) => {
       ActService
         .addAct(data)
         .then(() => {
+          commit('ADD_ACT', response.data);
           res({ error: false });
           dispatch('notification/set', {
             message: 'Пакт успешно заключён',

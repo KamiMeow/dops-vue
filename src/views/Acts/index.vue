@@ -2,11 +2,12 @@
   <v-layout wrap>
     <v-flex xs12>
       <sort-bar
-        actionText="Добавить нового пользователя"
-        title="Пользователи"
+        actionText="Составить новый акт"
+        title="Акты"
         :search.sync="search"
         :asc.sync="asc"
         @add="addAct"
+        @import-excel="importExcel"
       />
     </v-flex>
 
@@ -172,6 +173,22 @@ export default {
     },
     async deleteAct(id) {
       await this.$store.dispatch('acts/deleteAct', id);
+    },
+
+    importExcel(data) {
+      const keys = data.splice(0, 1).flat();
+
+      const newData = [];
+      data.forEach((item, index) => {
+        const element = {};
+        keys.forEach((key, index) => {
+          element[key] = item[index];
+        });
+        newData.push(element);
+        setTimeout(() => {
+          this.$store.dispatch('acts/addAct', element);
+        }, 500 * index);
+      });
     },
   },
 };
