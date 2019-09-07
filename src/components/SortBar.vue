@@ -43,7 +43,7 @@
             v-on="on"
             @click="ascComp = !ascComp"
           >
-            <!-- <v-icon>exchange</v-icon> -->
+            <v-icon>mdi-autorenew</v-icon>
           </v-btn>
         </template>
         Сначала {{ ascComp ? 'новые' : 'старые' }}
