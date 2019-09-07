@@ -38,7 +38,7 @@
             rounded
             shaped
           />
-          
+
           <v-text-field
             v-model.trim="user.phone"
             :rules="[rules.required, rules.phone]"
@@ -49,7 +49,7 @@
             rounded
             shaped
           />
-          
+
           <v-text-field
             v-model.trim="user.inn"
             :rules="[rules.required, rules.inn]"
@@ -59,7 +59,7 @@
             rounded
             shaped
           />
-          
+
           <v-layout>
             <v-text-field
               v-model.trim="user.serialPassport"
@@ -71,7 +71,7 @@
               rounded
               shaped
             />
-            
+
             <v-text-field
               v-model.trim="user.numberPassport"
               :rules="[rules.required, rules.numberPassport]"

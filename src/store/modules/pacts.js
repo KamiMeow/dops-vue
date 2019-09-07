@@ -1,4 +1,5 @@
 import services from '@/middleware';
+
 const { PactService } = services;
 
 export const initialState = () => ({
@@ -52,7 +53,7 @@ export const actions = {
     return new Promise((res) => {
       PactService
         .loadPact(id)
-        .then(response => {
+        .then((response) => {
           res({ error: false, data: response.data });
         });
     });
@@ -75,5 +76,5 @@ export const actions = {
 };
 
 export const getters = {
-  getPacts: state => state.pacts.sort((n, p) => n.id > p.id ? 1: -1),
+  getPacts: state => state.pacts.sort((n, p) => (n.id > p.id ? 1 : -1)),
 };

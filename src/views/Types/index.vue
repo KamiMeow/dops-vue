@@ -6,6 +6,7 @@
         title="Типы документов"
         :search.sync="search"
         :asc.sync="asc"
+        @import-excel="importExcel"
         @add="addType"
       />
     </v-flex>
@@ -104,6 +105,26 @@ export default {
     },
     async deleteType(id) {
       await this.$store.dispatch('types/deleteType', id);
+    },
+
+    importExcel(data) {
+      const keys = data.splice(0, 1).flat();
+
+      console.log(keys);
+      console.log(data);
+
+      const newData = [];
+      data.forEach((item, index) => {
+        const element = {};
+        keys.forEach((key, index) => {
+          element[key] = item[index];
+        });
+        newData.push(element);
+        setTimeout(() => {
+          this.$store.dispatch('types/addType', element);
+        }, 500 * index);
+      });
+      console.log(newData);
     },
   },
 };

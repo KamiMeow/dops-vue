@@ -38,7 +38,7 @@
             :disabled="!valid"
             depressed
             @click="$emit('action')"
-          > 
+          >
             <slot name="action-name">
               {{ actionName }}
             </slot>
@@ -79,8 +79,8 @@ export default {
   },
   methods: {
     closeDialog() {
-      this.dialog
-    }
-  }
+      this.dialog;
+    },
+  },
 };
 </script>

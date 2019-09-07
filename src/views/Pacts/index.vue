@@ -127,7 +127,7 @@ export default {
       const desc = (next, prev) => (next.id < next.id ? 1 : -1);
 
       return this.pacts
-        .map(p => {
+        .map((p) => {
           p.fio = this.getUserFIO(p.userId);
           p.statementNumber = this.getDocumentNumber(p.statement);
           return p;

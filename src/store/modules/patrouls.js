@@ -1,4 +1,5 @@
 import services from '@/middleware';
+
 const { PatroulService } = services;
 
 export const initialState = () => ({
@@ -52,7 +53,7 @@ export const actions = {
     return new Promise((res) => {
       PatroulService
         .loadPatroul(id)
-        .then(response => {
+        .then((response) => {
           res({ error: false, data: response.data });
         });
     });
@@ -75,5 +76,5 @@ export const actions = {
 };
 
 export const getters = {
-  getPatrouls: state => state.patrouls.sort((n, p) => n.id > p.id ? 1: -1),
+  getPatrouls: state => state.patrouls.sort((n, p) => (n.id > p.id ? 1 : -1)),
 };

@@ -78,12 +78,12 @@ export default {
       return !!this.id;
     },
     currentTitle() {
-      return this.isEdit ? 'Редактирование типа' : 'Создание нового типа'
+      return this.isEdit ? 'Редактирование типа' : 'Создание нового типа';
     },
     currentActionName() {
       return this.isEdit ? 'Редактировать' : 'Создать';
     },
-    
+
     users() {
       return this.$store.getters['users/getUsers'];
     },
@@ -97,11 +97,11 @@ export default {
     currentPatrouls() {
       const newPatrouls = [];
 
-      this.patrouls.forEach(patroul => {
-        const founded = newPatrouls.find(p => p.patroulNumber === patroul.patroulNumber),
-              user = this.getUser(patroul.userId);
+      this.patrouls.forEach((patroul) => {
+        const founded = newPatrouls.find(p => p.patroulNumber === patroul.patroulNumber);
+        const user = this.getUser(patroul.userId);
 
-        if (!!founded) {
+        if (founded) {
           founded.users.push(user);
         } else {
           newPatrouls.push({
@@ -112,8 +112,8 @@ export default {
         }
       });
 
-      return newPatrouls.map(p => {
-        p.displayPatroul = `${p.patroulNumber} (${p.users.join(', ')})`
+      return newPatrouls.map((p) => {
+        p.displayPatroul = `${p.patroulNumber} (${p.users.join(', ')})`;
         return p;
       });
     },
@@ -157,7 +157,7 @@ export default {
       setTimeout(() => {
         this.$router.push('/acts');
       }, 1000);
-    }
-  }
+    },
+  },
 };
 </script>

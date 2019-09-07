@@ -59,11 +59,11 @@ export default {
       return !!this.id;
     },
     currentTitle() {
-      return this.isEdit ? 'Редактирование типа' : 'Создание нового типа'
+      return this.isEdit ? 'Редактирование типа' : 'Создание нового типа';
     },
     currentActionName() {
       return this.isEdit ? 'Редактировать' : 'Создать';
-    }
+    },
   },
   methods: {
     action() {
@@ -90,7 +90,7 @@ export default {
       setTimeout(() => {
         this.$router.push('/types');
       }, 1000);
-    }
-  }
+    },
+  },
 };
 </script>

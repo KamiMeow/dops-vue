@@ -1,4 +1,5 @@
 import services from '@/middleware';
+
 const { HouseDocumentService } = services;
 
 export const initialState = () => ({
@@ -25,7 +26,7 @@ export const actions = {
     return new Promise((res) => {
       HouseDocumentService
         .addHouseDocument(data)
-        .then(response => {
+        .then((response) => {
           res({ error: false, data: response.data });
           dispatch('notification/set', {
             message: 'Документы успешно добавлены',
@@ -52,7 +53,7 @@ export const actions = {
     return new Promise((res) => {
       HouseDocumentService
         .loadHouseDocument(id)
-        .then(response => {
+        .then((response) => {
           res({ error: false, data: response.data });
         });
     });
@@ -75,5 +76,5 @@ export const actions = {
 };
 
 export const getters = {
-  getHouseDocuments: state => state.houseDocuments.sort((n, p) => n.id > p.id ? 1: -1),
+  getHouseDocuments: state => state.houseDocuments.sort((n, p) => (n.id > p.id ? 1 : -1)),
 };

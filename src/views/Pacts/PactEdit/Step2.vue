@@ -24,7 +24,7 @@ export default {
     pact: { type: Object },
   },
   watch: {
-    'pact.statementNumber'(newVal) {
+    'pact.statementNumber': function (newVal) {
       if (newVal < 0) this.pact.statementNumber = 0;
     },
   },

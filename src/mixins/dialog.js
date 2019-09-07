@@ -12,7 +12,7 @@ export default {
       },
       set(dialog) {
         this.$emit('input', dialog);
-      }
-    }
-  }
+      },
+    },
+  },
 };

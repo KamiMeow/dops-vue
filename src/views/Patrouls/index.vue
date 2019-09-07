@@ -96,15 +96,15 @@ export default {
       return this.$store.getters['users/getUsers'];
     },
     currentPatrouls() {
-      const newPatrouls = [],
-            asc = (next, prev) => (next.patroulNumber > prev.patroulNumber ? 1 : -1),
-            desc = (next, prev) => (next.patroulNumber < prev.patroulNumber ? 1 : -1);
+      const newPatrouls = [];
+      const asc = (next, prev) => (next.patroulNumber > prev.patroulNumber ? 1 : -1);
+      const desc = (next, prev) => (next.patroulNumber < prev.patroulNumber ? 1 : -1);
 
-      this.patrouls.forEach(patroul => {
-        const founded = newPatrouls.find(p => p.patroulNumber === patroul.patroulNumber),
-              user = this.getUser(patroul.userId);
+      this.patrouls.forEach((patroul) => {
+        const founded = newPatrouls.find(p => p.patroulNumber === patroul.patroulNumber);
+        const user = this.getUser(patroul.userId);
 
-        if (!!founded) {
+        if (founded) {
           founded.users.push(user);
         } else {
           newPatrouls.push({

@@ -20,7 +20,7 @@
         </template>
         {{ actionText }}
       </v-tooltip>
-      
+
       <v-tooltip top>
         <template #activator="{ on }">
           <v-btn
@@ -123,23 +123,23 @@ export default {
   },
   methods: {
     importExcel({ target }) {
-			const files = target.files;
-			if(files && files[0]) this.parseExcel(files[0]);
-		},
+      const { files } = target;
+      if (files && files[0]) this.parseExcel(files[0]);
+    },
     parseExcel(file) {
-			const reader = new FileReader();
-			reader.onload = (e) => {
-        const result = e.target.result,
-              read = XLSX.read(result, { type: 'binary' }),
-              name = read.SheetNames[0],
-              ws = read.Sheets[name],
-              data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const { result } = e.target;
+        const read = XLSX.read(result, { type: 'binary' });
+        const name = read.SheetNames[0];
+        const ws = read.Sheets[name];
+        const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
 
         console.log(data);
         this.$emit('import-excel', data);
-			};
-			reader.readAsBinaryString(file);
-		}
+      };
+      reader.readAsBinaryString(file);
+    },
   },
 };
 </script>

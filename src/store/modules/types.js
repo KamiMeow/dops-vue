@@ -7,6 +7,7 @@ export const initialState = () => ({
 });
 
 export const mutations = {
+  ADD_TYPE: (state, type) => state.types.push(type),
   SET_TYPES: (state, types) => state.types = types,
   DELETE_TYPE: (state, id) => state.types = state.types.filter(t => t.id !== id),
 };
@@ -22,12 +23,13 @@ export const actions = {
         });
     });
   },
-  addType({ dispatch }, name) {
+  addType({ dispatch, commit }, name) {
     return new Promise((res) => {
       TypeService
         .addType(name)
-        .then(() => {
+        .then((response) => {
           res({ error: false });
+          commit('ADD_TYPE', response.data);
           dispatch('notification/set', {
             message: 'Тип успешно добавлен',
             type: 'success',
@@ -53,7 +55,7 @@ export const actions = {
     return new Promise((res) => {
       TypeService
         .loadType(id)
-        .then(response => {
+        .then((response) => {
           res({ error: false, data: response.data });
         });
     });
@@ -76,5 +78,5 @@ export const actions = {
 };
 
 export const getters = {
-  getTypes: state => state.types.sort((n, p) => n.id > p.id ? 1: -1),
+  getTypes: state => state.types.sort((n, p) => (n.id > p.id ? 1 : -1)),
 };

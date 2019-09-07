@@ -14,7 +14,7 @@
               rounded
               shaped
             />
-            
+
             <v-text-field
               v-model.trim="user.phone"
               :rules="[rules.required, rules.phone]"
@@ -25,7 +25,7 @@
               rounded
               shaped
             />
-            
+
             <v-text-field
               v-model.trim="user.inn"
               :rules="[rules.required, rules.inn]"
@@ -35,7 +35,7 @@
               rounded
               shaped
             />
-            
+
             <v-layout>
               <v-text-field
                 v-model.trim="user.serialPassport"
@@ -47,7 +47,7 @@
                 rounded
                 shaped
               />
-              
+
               <v-text-field
                 v-model.trim="user.numberPassport"
                 :rules="[rules.required, rules.numberPassport]"
@@ -115,11 +115,11 @@ export default {
       return !!this.id;
     },
     currentTitle() {
-      return this.isEdit ? 'Редактирование пользователя' : 'Создание нового пользователя'
+      return this.isEdit ? 'Редактирование пользователя' : 'Создание нового пользователя';
     },
     currentActionName() {
       return this.isEdit ? 'Редактировать' : 'Создать';
-    }
+    },
   },
   methods: {
     action() {
@@ -146,7 +146,7 @@ export default {
       setTimeout(() => {
         this.$router.push('/users');
       }, 1000);
-    }
-  }
+    },
+  },
 };
 </script>

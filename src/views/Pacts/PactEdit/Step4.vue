@@ -71,8 +71,8 @@
 </template>
 
 <script>
-import vue2Dropzone from "vue2-dropzone";
-import "vue2-dropzone/dist/vue2Dropzone.min.css";
+import vue2Dropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 
 export default {
   name: 'Step4',
@@ -86,8 +86,8 @@ export default {
   },
   data: () => ({
     dropzoneOptions: {
-      paramName: "image",
-      acceptedFiles: "image/*",
+      paramName: 'image',
+      acceptedFiles: 'image/*',
       url: 'https://httpbin.org/post',
 
       maxFiles: 1,
@@ -99,9 +99,9 @@ export default {
       thumbnailHeight: null,
       createImageThumbnails: false,
 
-      dictRemoveFile: "Удалить",
-      dictCancelUpload: "Отменить загрузку",
-      dictInvalidFileType: "Нужно загрузить изображение",
+      dictRemoveFile: 'Удалить',
+      dictCancelUpload: 'Отменить загрузку',
+      dictInvalidFileType: 'Нужно загрузить изображение',
 
       dictDefaultMessage:
         `
@@ -110,11 +110,11 @@ export default {
           <div class="title font-weight-regular">Кликните или просто перетащите в это поле видеофайл</div>
         `,
       dictResponseError:
-        "Возникла проблема на сервере. Свяжитесь с нами или попробуйте позже",
+        'Возникла проблема на сервере. Свяжитесь с нами или попробуйте позже',
       dictMaxFilesExceeded:
-        "Можно загрузить только один файл. Удалите лишний",
+        'Можно загрузить только один файл. Удалите лишний',
       dictFileTooBig:
-        "Размер файла должен быть меньше 2 мегабайт"
+        'Размер файла должен быть меньше 2 мегабайт',
     },
   }),
   methods: {
@@ -127,10 +127,10 @@ export default {
     },
 
     uploadFile(e) {
-      const blob = new Blob([e], {type: e.type});
+      const blob = new Blob([e], { type: e.type });
       this.pact.plan = window.URL.createObjectURL(blob);
     },
-  }
+  },
 };
 </script>
 

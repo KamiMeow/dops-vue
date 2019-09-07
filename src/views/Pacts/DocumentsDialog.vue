@@ -12,7 +12,7 @@
               <v-list-item-title class="text-right font-weight-medium">{{ getDocumentNumber(documents.asquisition) }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          
+
           <v-list-item>
             <v-list-item-content class="font-weight-bold">Номер сертификата о покупке</v-list-item-content>
 
@@ -20,7 +20,7 @@
               <v-list-item-title class="text-right font-weight-medium">{{ getDocumentNumber(documents.certificate) }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          
+
           <v-list-item>
             <v-list-item-content class="font-weight-bold">Номер документа о передачи имущества</v-list-item-content>
 
@@ -28,7 +28,7 @@
               <v-list-item-title class="text-right font-weight-medium">{{ getDocumentNumber(documents.transmit) }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          
+
           <v-list-item>
             <v-list-item-content class="font-weight-bold">Номер банковского чека</v-list-item-content>
 

@@ -28,7 +28,7 @@ const router = new Router({
     ...users,
     ...pacts,
     ...acts,
-    
+
     {
       path: '/*',
       redirect: '/users',

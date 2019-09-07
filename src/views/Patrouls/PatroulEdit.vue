@@ -74,18 +74,18 @@ export default {
       return !!this.id;
     },
     currentTitle() {
-      return this.isEdit ? 'Редактирование патруля' : 'Создание нового патруля'
+      return this.isEdit ? 'Редактирование патруля' : 'Создание нового патруля';
     },
     currentActionName() {
       return this.isEdit ? 'Редактировать' : 'Создать';
     },
 
     patroulNumber() {
-      const patroules = this.patrouls.sort((p, n) => n.patroulNumber > p.patroulNumber ? 1: -1);
+      const patroules = this.patrouls.sort((p, n) => (n.patroulNumber > p.patroulNumber ? 1 : -1));
       if (!patroules.length) return 0;
       return patroules[0].patroulNumber + 1;
     },
-    
+
     patrouls() {
       return this.$store.getters['patrouls/getPatrouls'];
     },
@@ -93,17 +93,17 @@ export default {
       return this.$store.getters['users/getUsers'].filter(u => u.isSotr);
     },
     today() {
-      const today = new Date(),
-            dd = today.getDate(),
-            mm = today.getMonth(),
-            yyyy = today.getFullYear();
-      
+      const today = new Date();
+      const dd = today.getDate();
+      const mm = today.getMonth();
+      const yyyy = today.getFullYear();
+
       return [
         `0${dd}`.slice(0, 2),
         `0${mm}`.slice(0, 2),
         yyyy,
       ].join('.');
-    }
+    },
   },
   methods: {
     action() {
@@ -121,15 +121,14 @@ export default {
     async create() {
       this.loading = true;
       this.selectedUsers.map((user, index) => {
-        
-        setTimeout(async() => {
+        setTimeout(async () => {
           await this.$store.dispatch('patrouls/addPatroul', {
             patroulNumber: this.patroulNumber,
             date: this.today,
             userId: user,
           });
         }, 500 * index);
-      })
+      });
       this.loading = false;
 
       setTimeout(() => {
@@ -147,7 +146,7 @@ export default {
       setTimeout(() => {
         this.$router.push('/patrouls');
       }, 1000);
-    }
-  }
+    },
+  },
 };
 </script>

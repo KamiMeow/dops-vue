@@ -46,7 +46,22 @@
       "id": 5
     }
   ],
-  "contract-types": [],
+  "contract-types": [
+    {
+      "name": {
+        "id": 1,
+        "name": "Банковский счёт"
+      },
+      "id": 1
+    },
+    {
+      "name": {
+        "id": 2,
+        "name": "Свидетельство"
+      },
+      "id": 2
+    }
+  ],
   "contracts": [
     {
       "id": 1,

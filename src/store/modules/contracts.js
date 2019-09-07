@@ -1,4 +1,5 @@
 import services from '@/middleware';
+
 const { ContractService } = services;
 
 export const initialState = () => ({
@@ -25,7 +26,7 @@ export const actions = {
     return new Promise((res) => {
       ContractService
         .addContract(data)
-        .then(response => {
+        .then((response) => {
           res({ error: false, data: response.data });
           dispatch('notification/set', {
             message: 'Контракт успешно добавлен',
@@ -52,7 +53,7 @@ export const actions = {
     return new Promise((res) => {
       ContractService
         .loadContract(id)
-        .then(response => {
+        .then((response) => {
           res({ error: false, data: response.data });
         });
     });
@@ -75,5 +76,5 @@ export const actions = {
 };
 
 export const getters = {
-  getContracts: state => state.contracts.sort((n, p) => n.id > p.id ? 1: -1),
+  getContracts: state => state.contracts.sort((n, p) => (n.id > p.id ? 1 : -1)),
 };

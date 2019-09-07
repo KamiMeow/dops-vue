@@ -100,10 +100,10 @@ export default {
     },
 
     icon() {
-      if (this.selectAll) return "mdi-checkbox-marked";
+      if (this.selectAll) return 'mdi-checkbox-marked';
       // if (this.selectSome) return "mdi-indeterminate_check_box";
 
-      return "mdi-checkbox-blank-outline";
+      return 'mdi-checkbox-blank-outline';
     },
   },
   methods: {
@@ -113,16 +113,14 @@ export default {
       }
       if (!this.model.find(i => i === item)) {
         this.model = [item, ...this.model];
-      }
-      else this.model = this.model.filter(i => i !== item);
+      } else this.model = this.model.filter(i => i !== item);
     },
 
     toggleAll() {
       if (this.selectAll) this.model = [];
       else if (this.itemValue) {
         this.model = this.items.map(i => i[this.itemValue]);
-      }
-      else {
+      } else {
         this.model = this.items;
       }
     },
@@ -134,8 +132,8 @@ export default {
     selectedItemIcon(item) {
       if (this.itemValue) item = item[this.itemValue];
 
-      if (!!this.model.find(i => i === item)) return "mdi-checkbox-marked";
-      return "mdi-checkbox-blank-outline";
+      if (this.model.find(i => i === item)) return 'mdi-checkbox-marked';
+      return 'mdi-checkbox-blank-outline';
     },
   },
 };

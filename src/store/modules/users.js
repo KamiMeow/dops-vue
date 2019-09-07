@@ -1,4 +1,5 @@
 import services from '@/middleware';
+
 const { UserService } = services;
 
 export const initialState = () => ({
@@ -26,7 +27,7 @@ export const actions = {
     return new Promise((res) => {
       UserService
         .addUser(data)
-        .then(response => {
+        .then((response) => {
           res({ error: false, data: response.data });
           commit('ADD_USER', response.data);
           dispatch('notification/set', {
@@ -54,7 +55,7 @@ export const actions = {
     return new Promise((res) => {
       UserService
         .loadUser(id)
-        .then(response => {
+        .then((response) => {
           res({ error: false, data: response.data });
         });
     });
@@ -77,5 +78,5 @@ export const actions = {
 };
 
 export const getters = {
-  getUsers: state => state.users.sort((n, p) => n.id > p.id ? 1: -1),
+  getUsers: state => state.users.sort((n, p) => (n.id > p.id ? 1 : -1)),
 };

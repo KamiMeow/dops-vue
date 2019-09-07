@@ -72,7 +72,7 @@ const stepper = [
   { index: 2, title: 'Добавление заявления', valid: false },
   { index: 3, title: 'Добавление документов на имущество', valid: false },
   { index: 4, title: 'Добавление данных об имуществе', valid: false },
-]
+];
 
 export default {
   name: 'PactEdit',
@@ -124,7 +124,7 @@ export default {
       return !!this.id;
     },
     currentTitle() {
-      return this.isEdit ? 'Редактирование пакта' : 'Заключение нового пакта'
+      return this.isEdit ? 'Редактирование пакта' : 'Заключение нового пакта';
     },
     currentActionName() {
       return this.isEdit ? 'Редактировать' : 'Создать';
@@ -192,7 +192,7 @@ export default {
       }, 1000);
     },
     async editPact() {
-      /// code here...
+      // / code here...
     },
     async create() {
       this.loading = true;
@@ -216,10 +216,10 @@ export default {
       }, 1000);
     },
     async createDocument(number, contractType) {
-      const id = (await this.$store.dispatch('contracts/addContract', {
+      const { id } = (await this.$store.dispatch('contracts/addContract', {
         contractType,
         number,
-      })).data.id;
+      })).data;
       return id;
     },
     async createHouseDocument() {
@@ -242,36 +242,36 @@ export default {
     step(newVal) {
       if (newVal === 3 && !this.pact.statement) {
         this.createDocument(this.pact.statementNumber, 3)
-          .then(res => {
+          .then((res) => {
             this.pact.statement = res;
-          })
+          });
       }
       if (newVal === 4 && !this.houseDocuments.check) {
         this.createDocument(this.houseDocuments.asquisitionNumber, 2)
-          .then(res => {
+          .then((res) => {
             this.houseDocuments.asquisition = res;
             this.createHouseDocument();
-          })
+          });
         setTimeout(() => {
           this.createDocument(this.houseDocuments.certificateNumber, 7)
-            .then(res => {
+            .then((res) => {
               this.houseDocuments.certificate = res;
               this.createHouseDocument();
-            })
+            });
         }, 500);
         setTimeout(() => {
           this.createDocument(this.houseDocuments.transmitNumber, 4)
-            .then(res => {
+            .then((res) => {
               this.houseDocuments.transmit = res;
               this.createHouseDocument();
-            })
+            });
         }, 1000);
         setTimeout(() => {
           this.createDocument(this.houseDocuments.checkNumber, 1)
-            .then(res => {
+            .then((res) => {
               this.houseDocuments.check = res;
               this.createHouseDocument();
-            })
+            });
         }, 1500);
       }
     },
