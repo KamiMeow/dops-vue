@@ -30,7 +30,7 @@
 <script>
 const items = [
   { title: 'Заключить пакт', icon: 'mdi-file-document-box-multiple', to: 'pact/new', color: 'primary' },
-  { title: 'Создать патруль', icon: 'mdi-shield-home', to: 'patroule/new', color: 'accent' },
+  { title: 'Создать патруль', icon: 'mdi-shield-home', to: 'patroul/new', color: 'accent' },
   { title: 'Составить акт', icon: 'mdi-file-document-box-plus', to: 'act/new', color: 'secondary' },
   { title: 'Добавить пользователя', icon: 'mdi-account-plus', to: 'user/new', color: 'grey' },
 ];
