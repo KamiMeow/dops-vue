@@ -221,10 +221,21 @@
   "acts": [
     {
       "id": 1,
-      "patroulId": 1,
       "isTrouble": true,
-      "statement": 1,
-      "pactId": 1
+      "patroulId": 1,
+      "userId": 1
+    },
+    {
+      "isTrouble": true,
+      "patroulId": 2,
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "isTrouble": false,
+      "patroulId": 1,
+      "userId": 6,
+      "id": 3
     }
   ],
   "house-documents": [

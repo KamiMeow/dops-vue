@@ -6,58 +6,26 @@
           <v-card-title class="mb-5">{{ currentTitle }}</v-card-title>
 
           <v-card-text>
-            <v-text-field
-              v-model.trim="act.fio"
-              :rules="[rules.required, rules.fio]"
-              label="ФИО"
-              outlined
-              rounded
-              shaped
+            <v-autocomplete
+              v-model="act.userId"
+              :rules="[rules.required]"
+              :items="clients"
+              label="Клиент, в чьё имение был вызов"
+              item-value="id"
+              item-text="fio"
             />
-            
-            <v-text-field
-              v-model.trim="act.phone"
-              :rules="[rules.required, rules.phone]"
-              v-mask="'(###) ###-##-##'"
-              label="Телефон"
-              prefix="+7 "
-              outlined
-              rounded
-              shaped
+            <v-autocomplete
+              v-model="act.patroulId"
+              :rules="[rules.required]"
+              :items="currentPatrouls"
+              item-value="patroulNumber"
+              item-text="displayPatroul"
+              label="Номер отряда"
             />
-            
-            <v-text-field
-              v-model.trim="act.inn"
-              :rules="[rules.required, rules.inn]"
-              v-mask="'##### #####'"
-              label="ИНН"
-              outlined
-              rounded
-              shaped
+            <v-switch
+              label="Проблема с сигнализацией"
+              v-model="act.isTrouble"
             />
-            
-            <v-layout>
-              <v-text-field
-                v-model.trim="act.serialPassport"
-                :rules="[rules.required, rules.seria]"
-                label="Серия паспорта"
-                v-mask="'####'"
-                class="mr-4"
-                outlined
-                rounded
-                shaped
-              />
-              
-              <v-text-field
-                v-model.trim="act.numberPassport"
-                :rules="[rules.required, rules.numberPassport]"
-                label="Номер паспорта"
-                v-mask="'######'"
-                outlined
-                rounded
-                shaped
-              />
-            </v-layout>
           </v-card-text>
 
           <v-card-actions>
@@ -92,14 +60,14 @@ export default {
     if (this.isEdit) {
       this.act = (await this.$store.dispatch('acts/loadAct', this.id)).data;
     }
+    this.loadUsers();
+    this.loadPatrouls();
   },
   data: vm => ({
     act: {
-      serialPassport: '',
-      numberPassport: '',
-      phone: '',
-      inn: '',
-      fio: '',
+      isTrouble: '',
+      patroulId: '',
+      userId: '',
     },
     valid: false,
     loading: false,
@@ -114,13 +82,61 @@ export default {
     },
     currentActionName() {
       return this.isEdit ? 'Редактировать' : 'Создать';
-    }
+    },
+    
+    users() {
+      return this.$store.getters['users/getUsers'];
+    },
+    clients() {
+      return this.users.filter(u => !u.isSotr);
+    },
+
+    patrouls() {
+      return this.$store.getters['patrouls/getPatrouls'];
+    },
+    currentPatrouls() {
+      const newPatrouls = [];
+
+      this.patrouls.forEach(patroul => {
+        const founded = newPatrouls.find(p => p.patroulNumber === patroul.patroulNumber),
+              user = this.getUser(patroul.userId);
+
+        if (!!founded) {
+          founded.users.push(user);
+        } else {
+          newPatrouls.push({
+            patroulNumber: patroul.patroulNumber,
+            date: patroul.date,
+            users: [user],
+          });
+        }
+      });
+
+      return newPatrouls.map(p => {
+        p.displayPatroul = `${p.patroulNumber} (${p.users.join(', ')})`
+        return p;
+      });
+    },
   },
   methods: {
+    async loadUsers() {
+      this.$store.dispatch('users/loadUsers');
+    },
+    async loadPatrouls() {
+      await this.$store.dispatch('patrouls/loadPatrouls');
+    },
+
     action() {
       if (this.isEdit) this.edit();
       else this.create();
     },
+    getUser(userId) {
+      if (!userId) return;
+      const user = this.users.find(u => u.id === userId);
+      if (!user) return;
+      return user.fio;
+    },
+
     async create() {
       this.loading = true;
       await this.$store.dispatch('acts/addAct', this.act);

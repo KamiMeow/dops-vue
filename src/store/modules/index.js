@@ -6,6 +6,7 @@ import * as menu from './menuItems';
 import * as types from './types';
 import * as users from './users';
 import * as pacts from './pacts';
+import * as acts from './acts';
 import * as auth from './auth';
 
 export default {
@@ -18,4 +19,5 @@ export default {
   users,
   menu,
   auth,
+  acts,
 };

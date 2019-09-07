@@ -22,16 +22,6 @@ const router = new Router({
       },
       component: () => import('@/views/LoginPage'),
     },
-    {
-      name: 'acts',
-      path: '/acts',
-      component: () => import('@/views/Acts'),
-    },
-    {
-      name: 'pacts',
-      path: '/pacts',
-      component: () => import('@/views/Pacts'),
-    },
 
     ...patrouls,
     ...types,

@@ -23,7 +23,7 @@
 
 <script>
 const menu = [
-  { title: 'Акты', to: '/act' },
+  { title: 'Акты', to: '/acts' },
   { title: 'Заключённые пакты', to: '/pacts' },
   { title: 'Пользователи', to: '/users' },
   { title: 'Патрули', to: '/patrouls' },

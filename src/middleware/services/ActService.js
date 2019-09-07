@@ -1,17 +1,17 @@
 export default {
-  loadActs(id) {
+  loadAct(id) {
     return this.apiClient.get(`acts/${id}`);
   },
-  loadActss() {
+  loadActs() {
     return this.apiClient.get('acts');
   },
-  addActs(data) {
+  addAct(data) {
     return this.apiClient.post('acts', data);
   },
-  editActs(data, id) {
+  editAct(data, id) {
     return this.apiClient.put(`acts/${id}`, data);
   },
-  deleteActs(id) {
+  deleteAct(id) {
     return this.apiClient.delete(`acts/${id}`);
   },
 };
