@@ -159,7 +159,7 @@
       "serialPassport": "4455",
       "numberPassport": "454563",
       "phone": "(999) 555-33-22",
-      "inn": "1239874560",
+      "inn": "12398 74560",
       "fio": "Иосиф Виссарионович Бергамонт",
       "isSotr": false
     },
@@ -168,16 +168,16 @@
       "serialPassport": "4455",
       "numberPassport": "456334",
       "phone": "(999) 555-33-22",
-      "inn": "1239874560",
+      "inn": "12398 74560",
       "fio": "Крыл Деднатович Курыч",
-      "isSotr": false
+      "isSotr": true
     },
     {
       "id": 3,
       "serialPassport": "4455",
       "numberPassport": "456343",
       "phone": "(999) 555-33-22",
-      "inn": "1239874560",
+      "inn": "12398 74560",
       "fio": "Оанов Ликов Трамбл",
       "isSotr": false
     },
@@ -186,7 +186,7 @@
       "serialPassport": "4455",
       "numberPassport": "456343",
       "phone": "(999) 555-33-22",
-      "inn": "1239874560",
+      "inn": "12398 74560",
       "fio": "Asss ddd ddd",
       "isSotr": true
     },
@@ -195,7 +195,7 @@
       "serialPassport": "4455",
       "numberPassport": "456343",
       "phone": "(999) 555-33-22",
-      "inn": "1239874560",
+      "inn": "12398 74565",
       "fio": "Eee eee eee",
       "isSotr": true
     },
@@ -243,6 +243,38 @@
       "check": 15,
       "userId": 7,
       "id": 2
+    }
+  ],
+  "patrouls": [
+    {
+      "id": 1,
+      "patroulNumber": 1,
+      "userId": 2,
+      "date": "05.10.2017"
+    },
+    {
+      "id": 2,
+      "patroulNumber": 1,
+      "userId": 4,
+      "date": "05.10.2017"
+    },
+    {
+      "id": 3,
+      "patroulNumber": 1,
+      "userId": 5,
+      "date": "05.10.2017"
+    },
+    {
+      "patroulNumber": 2,
+      "date": "07.08.2019",
+      "userId": 2,
+      "id": 4
+    },
+    {
+      "patroulNumber": 2,
+      "date": "07.08.2019",
+      "userId": 5,
+      "id": 5
     }
   ]
 }

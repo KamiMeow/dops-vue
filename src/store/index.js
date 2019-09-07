@@ -10,7 +10,9 @@ Vue.use(Vuex);
 
 const initialState = () => ({
   rules: {
-    required: v => !!v || 'Поле обязательно для заполнения',
+    required: v => Array.isArray(v)
+      ? !!v.length || "Поле обязательно для заполнения"
+      : !!v || "Поле обязательно для заполнения",
 
     inn: v=> v.length === 11 || 'Введите корректный ИНН',
     phone: v=> v.length === 15 || 'Введите корректный телефон',
