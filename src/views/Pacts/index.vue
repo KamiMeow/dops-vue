@@ -86,6 +86,7 @@ const headers = [
   { value: 'exists', text: 'Количество выходов' },
   { value: 'address', text: 'Адрес' },
   { value: 'documents', text: 'Документы' },
+  { value: 'tariff', text: 'Тариф' },
   // { value: 'plan', text: 'План' },
   { value: 'actions', text: 'События', sortable: false },
 ];
@@ -99,6 +100,7 @@ export default {
   async created() {
     this.loadPacts();
     this.loadUsers();
+    this.loadTariffs();
     this.loadContracts();
     this.loadHouseDocuments();
   },
@@ -128,6 +130,7 @@ export default {
 
       return this.pacts
         .map((p) => {
+          p.tariff = this.getTariff(p.tariff);
           p.fio = this.getUserFIO(p.userId);
           p.statementNumber = this.getDocumentNumber(p.statement);
           return p;
@@ -137,6 +140,9 @@ export default {
 
     users() {
       return this.$store.getters['users/getUsers'];
+    },
+    tariffs() {
+      return this.$store.getters['tariffs/getTariffs'];
     },
     contracts() {
       return this.$store.getters['contracts/getContracts'];
@@ -153,6 +159,9 @@ export default {
     },
     async loadUsers() {
       this.$store.dispatch('users/loadUsers');
+    },
+    async loadTariffs() {
+      this.$store.dispatch('tariffs/loadTariffs');
     },
     async loadContracts() {
       this.$store.dispatch('contracts/loadContracts');
@@ -175,6 +184,12 @@ export default {
       const value = this.users.find(v => v.id === id);
       if (!value) return;
       return value.fio;
+    },
+    getTariff(id) {
+      if (!id) return;
+      const value = this.tariffs.find(v => v.id === id);
+      if (!value) return;
+      return value.name;
     },
     getCurrentDocuments(userId) {
       this.documentDialog = true;

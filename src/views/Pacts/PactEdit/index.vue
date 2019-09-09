@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import Step1 from './Step1.vue';
 import Step2 from './Step2.vue';
 import Step3 from './Step3.vue';
@@ -98,6 +99,7 @@ export default {
       windows: '',
       address: '',
       exists: '',
+      tariff: 0,
       userId: 0,
       plan: '',
     },
@@ -184,11 +186,13 @@ export default {
     async createPact() {
       this.loading = true;
       await this.$store.dispatch('pacts/addPact', {
+        date: moment().format('DD.MM.YYYY'),
         statement: this.pact.statement,
         address: this.pact.address,
         windows: this.pact.windows,
         exists: this.pact.exists,
         userId: this.pact.userId,
+        tariff: this.pact.tariff,
         image: this.pact.image,
         plan: this.pact.plan,
       });
