@@ -87,9 +87,8 @@ export default {
   },
   async created() {
     if (this.isEdit) {
-      this.loadPact();
       this.loadContracts();
-      this.loadHouseDocuments();
+      this.loadPact();
     }
   },
   data: vm => ({
@@ -130,7 +129,7 @@ export default {
       return this.isEdit ? 'Редактировать' : 'Создать';
     },
     globalValid() {
-      return this.stepper.every(s => s.valid) && this.pact.plan;
+      return this.stepper.every(s => s.valid);
     },
 
     contracts() {
@@ -161,8 +160,14 @@ export default {
 
     async loadPact() {
       this.pact = (await this.$store.dispatch('pacts/loadPact', this.id)).data;
-      this.pact.plan = '';
+      // this.pact.image = JSON.parse(this.pact.image);
+      // const e = this.pact.image,
+      //       blob = new Blob([e], { type: e.type });
+
+      // this.pact.plan = window.URL.createObjectURL(blob);
       this.pact.statementNumber = this.getDocumentNumber(this.pact.statement);
+
+      this.loadHouseDocuments();
     },
     async loadContracts() {
       await this.$store.dispatch('contracts/loadContracts');
@@ -184,6 +189,7 @@ export default {
         windows: this.pact.windows,
         exists: this.pact.exists,
         userId: this.pact.userId,
+        image: this.pact.image,
         plan: this.pact.plan,
       });
       this.loading = false;
@@ -192,10 +198,30 @@ export default {
       }, 1000);
     },
     async editPact() {
-      // / code here...
+      this.loading = true;
+      const pact = {
+        statement: this.pact.statement,
+        address: this.pact.address,
+        windows: this.pact.windows,
+        exists: this.pact.exists,
+        userId: this.pact.userId,
+        image: this.pact.image,
+        plan: this.pact.plan,
+      };
+      await this.$store.dispatch('pacts/editPact', {
+        id: this.id,
+        data: pact,
+      });
+      this.loading = false;
+      setTimeout(() => {
+        this.$router.push('/pacts');
+      }, 1000);
     },
     async create() {
       this.loading = true;
+
+      // window.location.href = this.pact.plan;
+
       await this.$store.dispatch('pacts/addPact', this.pact);
       this.loading = false;
 

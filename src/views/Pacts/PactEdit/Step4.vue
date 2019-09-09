@@ -126,9 +126,18 @@ export default {
       }
     },
 
-    uploadFile(e) {
-      const blob = new Blob([e], { type: e.type });
-      this.pact.plan = window.URL.createObjectURL(blob);
+    uploadFile(file) {
+      const reader = new FileReader;
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        console.log(e);
+        console.log(e.target.result);
+        const image = e.target.result;
+        this.pact.plan = image;
+        // const blob = new Blob([e], { type: e.type });
+        // this.pact.plan = window.URL.createObjectURL(blob);
+        // this.pact.image = JSON.stringify(e)
+      }
     },
   },
 };
