@@ -13,11 +13,11 @@
     </v-flex>
 
     <v-flex xs12 class="my-5">
-      <v-layout>
-        <v-flex class="display-1">Выручка: 
+      <v-layout justify-space-around>
+        <v-flex shrink class="display-1">Выручка: 
           <span class="primary--text">{{ Number(currentBudget).toLocaleString('ru-Ru') }}</span>
         </v-flex>
-        <v-flex class="display-1">НДС: 
+        <v-flex shrink class="display-1">НДС: 
           <span class="primary--text">{{ Number(budgetWithNDC).toLocaleString('ru-Ru') }}</span>
         </v-flex>
       </v-layout>
@@ -41,12 +41,16 @@
 
     <v-flex xs12 class="my-5 headline">
       Всего записей <strong>{{ report.length }}</strong>, на суммму <strong>{{ Number(currentBudget).toLocaleString('ru-Ru') }}</strong>
+      <div class="mt-3">
+        <strong>{{ russianBudget }}</strong>
+      </div>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import SortBar from '@/components/SortBar';
+import { numberToString } from './converter';
 
 const headers = [
   { value: 'id', text: 'ID' },
@@ -95,6 +99,9 @@ export default {
       return this.report.reduce((summ, current) => {
         return summ + Number(current.summ);
       }, 0);
+    },
+    russianBudget() {
+      return numberToString(this.currentBudget);
     },
     budgetWithNDC() {
       return (13 * this.currentBudget) / 100;
@@ -158,7 +165,10 @@ export default {
     },
 
     getCurentSumm(tarrifId, period) {
-      return Number(this.getTariff(tarrifId).price) * Number(period);
+      const tariff = this.getTariff(tarrifId);
+      if (tariff){
+        return Number(tariff.price) * Number(period);
+      }
     }
   },
 };
