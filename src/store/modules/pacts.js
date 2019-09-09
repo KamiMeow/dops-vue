@@ -19,7 +19,7 @@ export const actions = {
         .then((response) => {
           commit('SET_PACTS', response.data);
           res({ error: false });
-        });
+        })
     });
   },
   addPact({ dispatch }, data) {
@@ -54,8 +54,13 @@ export const actions = {
       PactService
         .loadPact(id)
         .then((response) => {
+          console.log(response.data);
           res({ error: false, data: response.data });
-        });
+        })
+        .catch(err => {
+          console.log(err);
+          res({ error: true });
+        })
     });
   },
 

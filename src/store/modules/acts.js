@@ -27,7 +27,7 @@ export const actions = {
     return new Promise((res) => {
       ActService
         .addAct(data)
-        .then(() => {
+        .then(response => {
           commit('ADD_ACT', response.data);
           res({ error: false });
           dispatch('notification/set', {
