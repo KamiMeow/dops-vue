@@ -138,6 +138,18 @@ export default {
         return p;
       });
     },
+    today() {
+      const today = new Date();
+      const dd = today.getDate();
+      const mm = today.getMonth();
+      const yyyy = today.getFullYear();
+
+      return [
+        `0${dd}`.slice(0, 2),
+        `0${mm}`.slice(0, 2),
+        yyyy,
+      ].join('.');
+    },
   },
   methods: {
     async loadActs() {
@@ -174,18 +186,58 @@ export default {
     async deleteAct(id) {
       await this.$store.dispatch('acts/deleteAct', id);
     },
+    async addUser(name) {
+      this.$store.dispatch('users/addUser', {
+        isSotr: false,
+        name,
+      })
+    },
+    async addPatroul(patroulNumber) {
+      this.$store.dispatch('patrouls/addPatroul', {
+        date: this.today,
+        patroulNumber,
+        userId: 0,
+      });
+    },
+
+    userId(name) {
+      const user = this.users.find(u => u.fio.toLowerCase() === name.toLowerCase());
+      if (!user) {
+        this.addUser(name);
+        return this.users.length + 1;
+      }
+      return user.id;
+    },
+    patroulId(patroulNumber) {
+      const patroul = this.patrouls.find(p => +p.patroulNumber === +patroulNumber);
+      if (!patroul) {
+        this.addPatroul(patroulNumber);
+      }
+      return patroulNumber;
+    },
 
     importExcel(data) {
-      const keys = data.splice(0, 1).flat();
+      let keys = data.splice(0, 1).flat();
+      keys = [
+        'patroulId',
+        'userId',
+        'isTrouble',
+      ];
 
       const newData = [];
       data.forEach((item, index) => {
         const element = {};
-        keys.forEach((key, index) => {
-          element[key] = item[index];
-        });
+        element[keys[0]] = this.patroulId(item[0]);
+
+        element[keys[1]] = this.userId(item[1]);
+
+        const answer = item[2].toString().toLowerCase();
+        element[keys[2]] = answer === 'да';
+
+
         newData.push(element);
         setTimeout(() => {
+          console.log(element);
           this.$store.dispatch('acts/addAct', element);
         }, 500 * index);
       });
