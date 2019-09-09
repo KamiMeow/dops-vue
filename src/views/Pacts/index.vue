@@ -25,8 +25,8 @@
         :search="search"
         class="custom-elevation"
       >
-        <template #item.phone="{ item }">
-          +7 {{ item.phone }}
+        <template #item.period="{ item }">
+          {{ item.period }} мес.
         </template>
 
         <template #item.documents="{ item }">
@@ -87,6 +87,7 @@ const headers = [
   { value: 'address', text: 'Адрес' },
   { value: 'documents', text: 'Документы' },
   { value: 'tariff', text: 'Тариф' },
+  { value: 'period', text: 'Срок оформления' },
   // { value: 'plan', text: 'План' },
   { value: 'actions', text: 'События', sortable: false },
 ];
@@ -130,8 +131,8 @@ export default {
 
       return this.pacts
         .map((p) => {
-          p.tariff = this.getTariff(p.tariff);
           p.fio = this.getUserFIO(p.userId);
+          p.tariff = this.getTariff(p.tariff);
           p.statementNumber = this.getDocumentNumber(p.statement);
           return p;
         })

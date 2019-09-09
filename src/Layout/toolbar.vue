@@ -29,6 +29,7 @@ const menu = [
   { title: 'Пользователи', to: '/users' },
   { title: 'Патрули', to: '/patrouls' },
   { title: 'Типы документов', to: '/types' },
+  { title: 'Сформировать отчёт', to: '/reports' },
 ];
 
 export default {

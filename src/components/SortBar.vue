@@ -2,7 +2,7 @@
   <v-layout wrap>
     <v-flex grow class="display-1 font-weight-regular">
       <slot name="title">{{ title }}</slot>
-      <v-tooltip top>
+      <v-tooltip top v-if="!withoutAction">
         <template #activator="{ on }">
           <v-btn
             class="mx-3"
@@ -21,7 +21,7 @@
         {{ actionText }}
       </v-tooltip>
 
-      <v-tooltip top>
+      <v-tooltip top v-if="!notImport">
         <template #activator="{ on }">
           <v-btn
             class="mx-3"
@@ -39,9 +39,27 @@
         </template>
         Импорт из excel
       </v-tooltip>
+
+      <v-tooltip top v-if="exportExcel">
+        <template #activator="{ on }">
+          <v-btn
+            class="mx-3"
+            color="secondary"
+            outlined
+            rounded
+            v-on="on"
+            small
+            fab
+            @click="$emit('export-excel')"
+          >
+            <v-icon>mdi-file-excel-outline</v-icon>
+          </v-btn>
+        </template>
+        Экспорт в excel
+      </v-tooltip>
     </v-flex>
 
-    <v-flex shrink>
+    <v-flex shrink v-if="!withoutControls">
       <v-text-field
         v-model="searchComp"
         label="Поиск"
@@ -50,7 +68,7 @@
       />
     </v-flex>
 
-    <v-flex shrink>
+    <v-flex shrink v-if="!withoutControls">
       <v-tooltip top>
         <template #activator="{ on }">
           <v-btn
@@ -85,6 +103,10 @@ export default {
       type: String,
       default: 'Создать',
     },
+    withoutControls: { type: Boolean },
+    withoutAction: { type: Boolean },
+    exportExcel: { type: Boolean },
+    notImport: { type: Boolean },
     title: { type: String },
     asc: { type: Boolean },
   },

@@ -1,0 +1,166 @@
+<template>
+  <v-layout wrap>
+    <v-flex xs12>
+      <sort-bar
+        :searck.sync="search"
+        :asc.sync="asc"
+        title="Отчёт"
+        without-action
+        export-excel
+        not-import
+        @export-excel="exportExcel"
+      />
+    </v-flex>
+
+    <v-flex xs12 class="my-5">
+      <v-layout>
+        <v-flex class="display-1">Выручка: 
+          <span class="primary--text">{{ Number(currentBudget).toLocaleString('ru-Ru') }}</span>
+        </v-flex>
+        <v-flex class="display-1">НДС: 
+          <span class="primary--text">{{ Number(budgetWithNDC).toLocaleString('ru-Ru') }}</span>
+        </v-flex>
+      </v-layout>
+    </v-flex>
+
+    <v-flex xs12 class="my-4">
+      <v-data-table
+        :items-per-page.sync="itemsPerPageOptions[0]"
+        :footer-props="{ itemsPerPageOptions }"
+        :loading="loading"
+        :headers="headers"
+        :search="search"
+        :items="report"
+        class="custom-elevation"
+      >
+        <template #item.summ="{ item }">
+          {{ Number(item.summ).toLocaleString('ru-Ru') }}
+        </template>
+      </v-data-table>
+    </v-flex>
+
+    <v-flex xs12 class="my-5 headline">
+      Всего записей <strong>{{ report.length }}</strong>, на суммму <strong>{{ Number(currentBudget).toLocaleString('ru-Ru') }}</strong>
+    </v-flex>
+  </v-layout>
+</template>
+
+<script>
+import SortBar from '@/components/SortBar';
+
+const headers = [
+  { value: 'id', text: 'ID' },
+  { value: 'statement', text: 'Номер заявления' },
+  { value: 'fio', text: 'ФИО клиента' },
+  { value: 'tariff', text: 'Тарифный план' },
+  { value: 'tariffMonth', text: 'Плата за месяц' },
+  { value: 'period', text: 'Срок оформления' },
+  { value: 'summ', text: 'Плата за весь период' },
+];
+
+export default {
+  name: 'Reports',
+  components: { SortBar },
+  created() {
+    this.loadPacts();
+  },
+  data: vm => ({
+    search: '',
+
+    asc: false,
+    loading: true,
+
+    headers,
+    itemsPerPageOptions: vm.$store.getters.getPerPage.table,
+  }),
+  computed: {
+    report() {
+      const asc = (next, prev) => (next.id > prev.id ? 1 : -1);
+      const desc = (next, prev) => (next.id < next.id ? 1 : -1);
+
+      return this.pacts
+        .map((pact, index) => ({
+          summ: this.getCurentSumm(pact.tariff, pact.period),
+          tariffMonth: Number(this.getTariff(pact.tariff).price).toLocaleString('ru-Ru'),
+          statement: this.getDocumentNumber(pact.statement),
+          tariff: this.getTariff(pact.tariff).name,
+          fio: this.getUserFIO(pact.userId),
+          id: index + 1,
+          period: pact.period,
+        }))
+        .sort(this.asc ? asc : desc);
+    },
+
+    currentBudget() {
+      return this.report.reduce((summ, current) => {
+        return summ + Number(current.summ);
+      }, 0);
+    },
+    budgetWithNDC() {
+      return (13 * this.currentBudget) / 100;
+    },
+
+    users() {
+      return this.$store.getters['users/getUsers'];
+    },
+    tariffs() {
+      return this.$store.getters['tariffs/getTariffs'];
+    },
+    pacts() {
+      return this.$store.getters['pacts/getPacts'];
+    },
+    contracts() {
+      return this.$store.getters['contracts/getContracts'];
+    },
+  },
+  methods: {
+    async exportExcel() {
+      /// export here...
+    },
+
+    async loadPacts() {
+      this.loading = true;
+      this.$store.dispatch('pacts/loadPacts');
+      this.loadContracts();
+      this.loadTariffs();
+      this.loadTariffs();
+      this.loadUsers();
+
+      this.loading = false;
+    },
+    async loadTariffs() {
+      this.$store.dispatch('tariffs/loadTariffs');
+    },
+    async loadUsers() {
+      this.$store.dispatch('users/loadUsers');
+    },
+    async loadContracts() {
+      this.$store.dispatch('contracts/loadContracts');
+    },
+
+    getDocumentNumber(id) {
+      if (!id) return;
+      const value = this.contracts.find(v => v.id === id);
+      if (!value) return;
+      return value.number;
+    },
+    getUserFIO(id) {
+      if (!id) return;
+      const value = this.users.find(v => v.id === id);
+      if (!value) return;
+      return value.fio;
+    },
+    getTariff(id) {
+      if (!id) return;
+      const value = this.tariffs.find(v => v.id === id);
+      if (!value) return;
+      return value;
+    },
+
+    getCurentSumm(tarrifId, period) {
+      return Number(this.getTariff(tarrifId).price) * Number(period);
+    }
+  },
+};
+</script>
+ 

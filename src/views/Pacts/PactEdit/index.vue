@@ -101,6 +101,7 @@ export default {
       exists: '',
       tariff: 0,
       userId: 0,
+      period: 0,
       plan: '',
     },
     houseDocuments: {
@@ -193,6 +194,7 @@ export default {
         exists: this.pact.exists,
         userId: this.pact.userId,
         tariff: this.pact.tariff,
+        period: this.pact.period,
         image: this.pact.image,
         plan: this.pact.plan,
       });

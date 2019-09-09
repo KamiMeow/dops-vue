@@ -13,6 +13,18 @@
       shaped
     />
 
+    <v-text-field
+      label="Срок оформления"
+      v-model="pact.period"
+      :rules="[rules.required]"
+      type="number"
+      step="1"
+      min="0"
+      outlined
+      rounded
+      shaped
+    />
+
     <v-select
       v-model="pact.tariff"
       :rules="[rules.required]"
@@ -46,6 +58,9 @@ export default {
   watch: {
     'pact.statementNumber': function (newVal) {
       if (newVal < 0) this.pact.statementNumber = 0;
+    },
+    'pact.period': function (newVal) {
+      if (newVal < 0) this.pact.period = 0;
     },
   },
 };
