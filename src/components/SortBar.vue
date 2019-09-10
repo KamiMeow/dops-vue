@@ -1,62 +1,66 @@
 <template>
   <v-layout wrap>
     <v-flex grow class="display-1 font-weight-regular">
-      <slot name="title">{{ title }}</slot>
-      <v-tooltip top v-if="!withoutAction">
-        <template #activator="{ on }">
-          <v-btn
-            class="mx-3"
-            color="accent"
-            outlined
-            rounded
-            v-on="on"
-            small
-            fab
-            @click="$emit('add')"
-          >
-            <v-icon>mdi-plus</v-icon>
-            <!-- Создать -->
-          </v-btn>
-        </template>
-        {{ actionText }}
-      </v-tooltip>
+      <v-layout>
+        <slot name="title">{{ title }}</slot>
+        <v-tooltip top v-if="!withoutAction">
+          <template #activator="{ on }">
+            <v-btn
+              class="mx-3"
+              color="accent"
+              outlined
+              rounded
+              v-on="on"
+              small
+              fab
+              @click="$emit('add')"
+            >
+              <v-icon>mdi-plus</v-icon>
+              <!-- Создать -->
+            </v-btn>
+          </template>
+          {{ actionText }}
+        </v-tooltip>
 
-      <v-tooltip top v-if="!notImport">
-        <template #activator="{ on }">
-          <v-btn
-            class="mx-3"
-            color="secondary"
-            outlined
-            rounded
-            v-on="on"
-            small
-            fab
-            @click="$refs.inputCsvUpload.click()"
-          >
-            <v-icon>mdi-file-excel</v-icon>
-          </v-btn>
-          <input v-show="false" ref="inputCsvUpload" type="file" @change="importExcel">
-        </template>
-        Импорт из excel
-      </v-tooltip>
+        <v-tooltip top v-if="!notImport">
+          <template #activator="{ on }">
+            <v-btn
+              class="mx-3"
+              color="secondary"
+              outlined
+              rounded
+              v-on="on"
+              small
+              fab
+              @click="$refs.inputCsvUpload.click()"
+            >
+              <v-icon>mdi-file-excel</v-icon>
+            </v-btn>
+            <input v-show="false" ref="inputCsvUpload" type="file" @change="importExcel">
+          </template>
+          Импорт из excel
+        </v-tooltip>
 
-      <v-tooltip top v-if="exportExcel">
-        <template #activator="{ on }">
-          <v-btn
-            class="mx-3"
-            color="secondary"
-            outlined
-            rounded
-            v-on="on"
-            small
-            fab
-            @click="$emit('export-excel')"
-          >
-            <v-icon>mdi-file-excel-outline</v-icon>
-          </v-btn>
-        </template>
-        Экспорт в excel
-      </v-tooltip>
+        <report-export :report="report">
+          <v-tooltip top v-if="exportExcel">
+            <template #activator="{ on }">
+              <v-btn
+                class="mx-3"
+                color="secondary"
+                outlined
+                rounded
+                v-on="on"
+                small
+                fab
+                @click="$emit('export-excel')"
+              >
+                <v-icon>mdi-file-excel-outline</v-icon>
+              </v-btn>
+            </template>
+            Экспорт в excel
+          </v-tooltip>
+        </report-export>
+      </v-layout>
     </v-flex>
 
     <v-flex shrink v-if="!withoutControls">
@@ -91,9 +95,11 @@
 
 <script>
 import XLSX from 'xlsx';
+import ReportExport from '@/components/ReportExport';
 
 export default {
   name: 'SortBar',
+  components: { ReportExport },
   props: {
     search: {
       type: String,
@@ -103,6 +109,7 @@ export default {
       type: String,
       default: 'Создать',
     },
+    report: { type: Object },
     withoutControls: { type: Boolean },
     withoutAction: { type: Boolean },
     exportExcel: { type: Boolean },
