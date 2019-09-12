@@ -14,6 +14,7 @@
     </v-toolbar-items>
 
     <v-spacer />
+    <div class="mr-4">{{ name }}</div>
     <v-btn style="height: 100%" class="ma-0" text @click="logout">
       Выход
       <v-icon class="ml-3">fa-sign-out</v-icon>
@@ -34,12 +35,16 @@ const menu = [
 
 export default {
   name: 'TheToolbarApp',
-  data: () => ({
-    menu,
-  }),
+  data: () => ({ menu }),
+  computed: {
+    name() {
+      return this.$store.getters['auth/getName'];
+    },
+  },
   methods: {
     logout() {
       this.$store.dispatch('unsetUserData');
+      this.$store.dispatch('auth/logout');
       this.$nextTick(() => {
         this.$router.push({ name: 'login' });
       });

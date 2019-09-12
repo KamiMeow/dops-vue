@@ -6,7 +6,7 @@
 
     <v-content fliud>
       <v-slide-y-transition>
-        <v-container>
+        <v-container fluid>
           <v-layout fill-height justify-center>
             <v-flex xs10 class="px-5 pt-5 mt-5">
               <router-view />

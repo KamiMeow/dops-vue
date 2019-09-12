@@ -36,6 +36,9 @@
         <template #item.summ="{ item }">
           {{ Number(item.summ).toLocaleString('ru-Ru') }}
         </template>
+        <template #item.price="{ item }">
+          {{ Number(item.price).toLocaleString('ru-Ru') }}
+        </template>
       </v-data-table>
     </v-flex>
 
@@ -54,11 +57,12 @@ import { numberToString } from './converter';
 
 const headers = [
   { value: 'id', text: 'ID' },
-  { value: 'statement', text: 'Номер заявления' },
-  { value: 'fio', text: 'ФИО клиента' },
-  { value: 'tariff', text: 'Тарифный план' },
-  { value: 'tariffMonth', text: 'Плата за месяц' },
-  { value: 'period', text: 'Срок оформления' },
+  // { value: 'statement', text: 'Номер заявления' },
+  // { value: 'fio', text: 'ФИО клиента' },
+  { value: 'name', text: 'Тарифный план' },
+  { value: 'count', text: 'Количество' },
+  { value: 'price', text: 'Плата за месяц' },
+  // { value: 'period', text: 'Срок оформления' },
   { value: 'summ', text: 'Плата за весь период' },
 ];
 
@@ -66,6 +70,7 @@ export default {
   name: 'Reports',
   components: { SortBar },
   created() {
+    this.loadTariffs();
     this.loadPacts();
   },
   data: vm => ({
@@ -82,17 +87,34 @@ export default {
       const asc = (next, prev) => (next.id > prev.id ? 1 : -1);
       const desc = (next, prev) => (next.id < next.id ? 1 : -1);
 
-      return this.pacts
-        .map((pact, index) => ({
-          summ: this.getCurentSumm(pact.tariff, pact.period),
-          tariffMonth: Number(this.getTariff(pact.tariff).price).toLocaleString('ru-Ru'),
-          statement: this.getDocumentNumber(pact.statement),
-          tariff: this.getTariff(pact.tariff).name,
-          fio: this.getUserFIO(pact.userId),
-          id: index + 1,
-          period: pact.period,
-        }))
-        .sort(this.asc ? asc : desc);
+      const result = this.tariffs.map(tariff => {
+        const count = this.pacts.filter(p => p.tariff === tariff.id).length;
+        return {
+          summ: tariff.price * count,
+          ...tariff,
+          count,
+        }
+      });
+
+      return result.sort(this.asc ? asc : desc);
+
+      // this.pacts.map(pact => {
+      //   const tariff = this.getTatariff => {
+      //     riff(pact.tariff);
+      //   if ()
+      // })
+
+      // return this.pacts
+      //   .map((pact, index) => ({
+      //     summ: this.getCurentSumm(pact.tariff, pact.period),
+      //     tariffMonth: Number(this.getTariff(pact.tariff).price).toLocaleString('ru-Ru'),
+      //     // statement: this.getDocumentNumber(pact.statement),
+      //     tariff: this.getTariff(pact.tariff).name,
+      //     // fio: this.getUserFIO(pact.userId),
+      //     id: index + 1,
+      //     period: pact.period,
+      //   }))
+      //   .sort(this.asc ? asc : desc);
     },
 
     currentBudget() {
@@ -129,7 +151,6 @@ export default {
       this.loading = true;
       this.$store.dispatch('pacts/loadPacts');
       this.loadContracts();
-      this.loadTariffs();
       this.loadTariffs();
       this.loadUsers();
 

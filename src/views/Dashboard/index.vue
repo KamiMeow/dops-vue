@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs5>
+    <v-flex xs7>
       <v-layout wrap>
         <v-flex
           v-for="item in items"

@@ -478,7 +478,9 @@
       "phone": "(999) 555-33-22",
       "inn": "12398 74560",
       "fio": "Крыл Деднатович Курыч",
-      "isSotr": true
+      "isSotr": true,
+      "password": "123123123",
+      "login": "kril.d.k@dops.com"
     },
     {
       "id": 3,
@@ -496,7 +498,9 @@
       "phone": "(999) 555-33-22",
       "inn": "12398 74560",
       "fio": "Asss ddd ddd",
-      "isSotr": true
+      "isSotr": true,
+      "password": "123123123",
+      "login": "asss.d.d@dops.com"
     },
     {
       "id": 5,
@@ -505,7 +509,9 @@
       "phone": "(999) 555-33-22",
       "inn": "12398 74565",
       "fio": "Eee eee eee",
-      "isSotr": true
+      "isSotr": true,
+      "password": "123123123",
+      "login": "eee.e.e@dops.com"
     },
     {
       "serialPassport": "4234",
@@ -531,7 +537,7 @@
       "phone": "(900) 663-15-33",
       "inn": "24048 68999",
       "fio": "Усачёва Евлампия Валерьевна ",
-      "isSotr": "false",
+      "isSotr": false,
       "id": 8
     },
     {
@@ -540,7 +546,7 @@
       "phone": "(935) 803-91-69",
       "inn": "27267 61619",
       "fio": "Лукерин Геннадий Федорович",
-      "isSotr": "false",
+      "isSotr": false,
       "id": 9
     },
     {
@@ -549,7 +555,9 @@
       "phone": "(956) 657-81-11",
       "inn": "75592 61885",
       "fio": "Константинов Илья Романович",
-      "isSotr": "true",
+      "isSotr": true,
+      "password": "qweqweqwe",
+      "login": "konstantiniv.i.r@dops.com",
       "id": 10
     },
     {
@@ -558,7 +566,9 @@
       "phone": "(959) 338-52-15",
       "inn": "24558 09857",
       "fio": "Александрова Власта Михайловна ",
-      "isSotr": "true",
+      "isSotr": true,
+      "password": "qweqweqwe",
+      "login": "aleksandrovna.v.m@dops.com",
       "id": 11
     },
     {
@@ -567,7 +577,7 @@
       "phone": "(917) 535-21-81",
       "inn": "36582 22569",
       "fio": "Русина Розалия Алексеевна ",
-      "isSotr": "false",
+      "isSotr": false,
       "id": 12
     },
     {
@@ -576,7 +586,7 @@
       "phone": "(937) 998-66-65",
       "inn": "54138 59918",
       "fio": "Зайцев Харитон Борисович",
-      "isSotr": "false",
+      "isSotr": false,
       "id": 13
     },
     {
@@ -585,7 +595,7 @@
       "phone": "(969) 189-47-96",
       "inn": "06689 00970",
       "fio": "Никитин Руслан Геннадиевич",
-      "isSotr": "false",
+      "isSotr": false,
       "id": 14
     },
     {
@@ -594,7 +604,7 @@
       "phone": "(900) 663-15-33",
       "inn": "24048 68999",
       "fio": "Усачёва Евлампия Валерьевна ",
-      "isSotr": "false",
+      "isSotr": false,
       "id": 15
     },
     {
@@ -603,7 +613,9 @@
       "phone": "(930) 164-84-57",
       "inn": "44377 88870",
       "fio": "Кравченко Марина Робертовна ",
-      "isSotr": "true",
+      "isSotr": true,
+      "password": "qweqweqwe",
+      "login": "m.r.kravchenko@dops.com",
       "id": 16
     },
     {
@@ -612,7 +624,7 @@
       "phone": "(935) 803-91-69",
       "inn": "27267 61619",
       "fio": "Лукерин Геннадий Федорович",
-      "isSotr": "false",
+      "isSotr": false,
       "id": 17
     },
     {
@@ -621,7 +633,9 @@
       "phone": "(956) 657-81-11",
       "inn": "75592 61885",
       "fio": "Константинов Илья Романович",
-      "isSotr": "true",
+      "isSotr": true,
+      "password": "qweqweqwe",
+      "login": "konstantiniv.i.r@dops.com",
       "id": 18
     },
     {
@@ -630,7 +644,9 @@
       "phone": "(959) 338-52-15",
       "inn": "24558 09857",
       "fio": "Александрова Власта Михайловна ",
-      "isSotr": "true",
+      "isSotr": true,
+      "password": "qweqweqwe",
+      "login": "aleksandrovna.v.m@dops.com",
       "id": 19
     },
     {
@@ -639,7 +655,7 @@
       "phone": "(917) 535-21-81",
       "inn": "36582 22569",
       "fio": "Русина Розалия Алексеевна ",
-      "isSotr": "false",
+      "isSotr": false,
       "id": 20
     },
     {
@@ -648,7 +664,7 @@
       "phone": "(937) 998-66-65",
       "inn": "54138 59918",
       "fio": "Зайцев Харитон Борисович",
-      "isSotr": "false",
+      "isSotr": false,
       "id": 21
     },
     {
@@ -657,7 +673,7 @@
       "phone": "(969) 189-47-96",
       "inn": "06689 00970",
       "fio": "Никитин Руслан Геннадиевич",
-      "isSotr": "false",
+      "isSotr": false,
       "id": 22
     }
   ],
