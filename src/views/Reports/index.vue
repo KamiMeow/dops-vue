@@ -95,7 +95,6 @@ export default {
       const asc = (next, prev) => (next.id > prev.id ? 1 : -1);
       const desc = (next, prev) => (next.id < next.id ? 1 : -1);
 
-<<<<<<< HEAD
       const result = this.tariffs.map(tariff => {
         const count = this.pacts.filter(p => p.tariff === tariff.id).length;
         return {
@@ -124,19 +123,6 @@ export default {
       //     period: pact.period,
       //   }))
       //   .sort(this.asc ? asc : desc);
-=======
-      return this.pacts
-        .map((pact, index) => ({
-          id: index + 1,
-          statement: this.getDocumentNumber(pact.statement),
-          fio: this.getUserFIO(pact.userId),
-          tariff: this.getTariff(pact.tariff).name,
-          tariffMonth: Number(this.getTariff(pact.tariff).price).toLocaleString('ru-Ru'),
-          period: pact.period,
-          summ: this.getCurentSumm(pact.tariff, pact.period),
-        }))
-        .sort(this.asc ? asc : desc);
->>>>>>> aeb270d57c9f589be10676fd4afcd8034d44490b
     },
 
     currentBudget() {
