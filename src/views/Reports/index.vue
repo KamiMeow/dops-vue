@@ -8,7 +8,7 @@
         without-action
         export-excel
         not-import
-        @export-excel="exportExcel"
+        :report="globalReport"
       />
     </v-flex>
 
@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import SortBar from '@/components/SortBar';
 import { numberToString } from './converter';
+import SortBar from '@/components/SortBar';
 
 const headers = [
   { value: 'id', text: 'ID' },
@@ -83,10 +83,19 @@ export default {
     itemsPerPageOptions: vm.$store.getters.getPerPage.table,
   }),
   computed: {
+    globalReport() {
+      return {
+        russianBudget: this.russianBudget, 
+        budgetWithNDC: this.budgetWithNDC,
+        budget: this.currentBudget,
+        items: this.report,
+      };
+    },
     report() {
       const asc = (next, prev) => (next.id > prev.id ? 1 : -1);
       const desc = (next, prev) => (next.id < next.id ? 1 : -1);
 
+<<<<<<< HEAD
       const result = this.tariffs.map(tariff => {
         const count = this.pacts.filter(p => p.tariff === tariff.id).length;
         return {
@@ -115,6 +124,19 @@ export default {
       //     period: pact.period,
       //   }))
       //   .sort(this.asc ? asc : desc);
+=======
+      return this.pacts
+        .map((pact, index) => ({
+          id: index + 1,
+          statement: this.getDocumentNumber(pact.statement),
+          fio: this.getUserFIO(pact.userId),
+          tariff: this.getTariff(pact.tariff).name,
+          tariffMonth: Number(this.getTariff(pact.tariff).price).toLocaleString('ru-Ru'),
+          period: pact.period,
+          summ: this.getCurentSumm(pact.tariff, pact.period),
+        }))
+        .sort(this.asc ? asc : desc);
+>>>>>>> aeb270d57c9f589be10676fd4afcd8034d44490b
     },
 
     currentBudget() {
@@ -145,6 +167,52 @@ export default {
   methods: {
     async exportExcel() {
       /// export here...
+    },
+
+    convertArrayOfObjectsToCSV(args) {
+      let result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+      data = args.data || null;
+      if (data == null || !data.length) return null
+
+      columnDelimiter = args.columnDelimiter || ";";
+      lineDelimiter = args.lineDelimiter || "\n";
+
+      result = "";
+      result += Object.keys(data[0]).join(columnDelimiter);
+      result += lineDelimiter;
+
+      data.forEach(item => {
+        ctr = 0;
+        Object.values(item).forEach(value => {
+          if (ctr > 0) result += columnDelimiter;
+
+          result += value;
+          ctr++;
+        });
+        result += lineDelimiter;
+      });
+
+      return result;
+    },
+    downloadCSV(args) {
+      let data, filename, link;
+      let csv = this.convertArrayOfObjectsToCSV({
+        data: this.report
+      });
+      if (csv == null) return;
+
+      filename = args.filename || "export.csv";
+
+      if (!csv.match(/^data:text\/csv/i)) {
+        csv = "data:text/csv;," + csv;
+      }
+      data = encodeURI(csv);
+
+      link = document.createElement("a");
+      link.setAttribute("href", data);
+      link.setAttribute("download", filename);
+      link.click();
     },
 
     async loadPacts() {
